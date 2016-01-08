@@ -1,0 +1,314 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color:#EEEEEE;
+    font-size:12px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.PageHeader {
+    clear:both;
+    border-top-left-radius:7px;
+    border-top-right-radius:7px;
+    background: -webkit-linear-gradient(top, #4800ff 0%,#723fff 50%,#dddddd 100%);
+    background: -o-linear-gradient(bottom, #4800ff 0%,#723fff 50%,#dddddd 100%);
+    background: -moz-linear-gradient(bottom, #4800ff 0%,#723fff 50%,#dddddd 100%);
+    background: linear-gradient(to bottom, #4800ff 0%,#723fff 50%,#dddddd 100%);
+    color:#ffffff;
+}
+
+.PageHeader .HeaderText {
+    font-weight:bold;
+    font-size:17px;
+    padding:10px;
+    display:inline-block;
+}
+
+.TopNavigation {
+    text-align: left;
+    display: inline;
+    margin: 0;
+    list-style: none;
+}
+
+.TopNavigation li {
+  display: inline-block;
+  position: relative;
+  font-size:14px;
+}
+
+.TopNavigation li a, .TopNavigation li div {
+  display: inline-block;
+  padding: 13px 10px 12px 10px;
+}
+
+.TopNavigation li a {
+  cursor: pointer;
+}
+
+.TopNavigation li:hover {
+    background: -webkit-linear-gradient(top, #333333 0%,#888888 100%);
+    background: -o-linear-gradient(bottom, #333333 0%,#888888 100%);
+    background: -moz-linear-gradient(bottom, #333333 0%,#888888 100%);
+    background: linear-gradient(to bottom, #333333 0%,#888888 100%);
+}
+
+.TopNavigation .SubNavigation {
+    padding: 0;
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 150px;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.TopNavigation .SubNavigation li { 
+    background: -webkit-linear-gradient(top, #888888 0%,#AAAAAA 100%);
+    background: -o-linear-gradient(bottom, #888888 0%,#AAAAAA 100%);
+    background: -moz-linear-gradient(bottom, #888888 0%,#AAAAAA 100%);
+    background: linear-gradient(to bottom, #888888 0%,#AAAAAA 100%);
+    display: block;
+    width:150px;
+    font-size:14px;
+}
+
+.TopNavigation .SubNavigation li a, .TopNavigation .SubNavigation li div { 
+    padding:5px 10px 5px 10px;
+    font-size:14px;
+}
+
+.TopNavigation .SubNavigation li:hover {
+    background: -webkit-linear-gradient(top, #333333 0%,#888888 100%);
+    background: -o-linear-gradient(bottom, #333333 0%,#888888 100%);
+    background: -moz-linear-gradient(bottom, #333333 0%,#888888 100%);
+    background: linear-gradient(to bottom, #333333 0%,#888888 100%);
+}
+
+.TopNavigation li:hover .SubNavigation {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.PageHeader a {
+    color:#ffffff;
+    text-decoration:none;
+}
+
+.PageHeader a:hover {
+    color:#ffffff;
+    text-decoration:none;
+}
+
+.PageFooter{
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color:#FFFFFF;
+}
+
+.PageFooterText{
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:10px;
+    padding-right:10px;
+    font-size:11px;
+}
+
+.PageContent {
+    clear:both;
+    padding:10px;
+    background-color:#FFFFFF;
+}
+
+.SiteContainer{
+    border: 2px solid #333333;
+    border-radius: 8px;
+    clear:both;
+    width:1000px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow:5px 5px 3px #888888;
+}
+
+.DividerLine{
+    width:98%;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#888888;
+    height:1px;
+}
+
+.field-validation-error {
+    color:#FF0000;
+}
+
+.input-validation-error {
+    border-color:#FF0000;
+}
+
+
+.PageTitle {
+    font-weight:bold;
+    font-size:14px;
+    border-bottom:1px solid #CCCCCC;
+    margin-bottom:10px;
+}
+
+
+.InputRow
+{
+    list-style-type:none;
+    clear:both;
+    padding:0px 0px 5px 0px;
+    margin:0px;
+}
+
+.InputRow .InputLabel
+{
+    font-weight:bold;
+    display:inline-block;
+    width:100px;
+}
+
+.InputRow .InputField
+{
+    display:inline-block;
+}
+
+.BtnSubmit
+{
+    background-color:#4800ff;
+    color:#FFFFFF;
+    border:none;
+    border-radius:3px;
+}
+
+.BtnSubmit:hover
+{
+    background-color:#888888;
+}
+
+#SearchResultsHeading
+{
+    font-weight:bold;
+    padding:5px 0px 5px 0px;
+}
+
+#SearchItem #SearchTitle
+{
+    padding:5px;
+    font-weight:bold;
+    font-size:14px;
+    background-color:#888888;
+    color:#FFFFFF;
+}
+
+#SearchItem #SearchTitle:hover
+{
+    background-color:#444444;
+    cursor:pointer;
+}
+
+
+#SearchItem #SearchDescription
+{
+    padding:5px;
+    font-size:12px;
+    border:2px solid #888888;
+}
+
+.RecipeHeading
+{
+    border-bottom:1px solid #888888;
+    margin-bottom:5px;
+}
+
+.RecipeHeading .Title
+{
+    font-weight:bold;
+    font-size:14px;
+    padding-bottom:5px;
+}
+
+.RecipeHeading .Description
+{
+    font-size:12px;
+    padding-bottom:5px;
+}
+
+.IngredientsList
+{
+    margin:0px;
+    padding:0px 0px 0px 10px;
+    list-style-type:none;
+    counter-reset: ingcounter;
+}
+
+.IngredientsList .Header
+{
+    font-weight:bold;
+    counter-reset: ingcounter;
+}
+
+.IngredientsList .Ingredient
+{
+    padding-left: 25px;
+    text-indent: -1.1em;
+}
+
+.IngredientsList .Ingredient:before
+{
+    font-weight:bold;
+    content: counter(ingcounter) ": ";
+	counter-increment: ingcounter;
+}
+
+.DirectionsList
+{
+    margin:0px;
+    padding:0px 0px 0px 10px;
+    list-style-type:none;
+    counter-reset: dircounter;
+}
+
+.DirectionsList .Header
+{
+    font-weight:bold;
+    padding-bottom:5px;
+    counter-reset: dircounter;
+}
+
+.DirectionsList .Direction
+{
+    padding-bottom:5px;
+    padding-left: 25px;
+    text-indent: -1.1em;
+}
+
+.DirectionsList .Direction:before
+{
+    font-weight:bold;
+    content: counter(dircounter) ": ";
+	counter-increment: dircounter;
+}

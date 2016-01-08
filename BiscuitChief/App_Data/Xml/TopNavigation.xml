@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+
+<TopNavigation>
+  <MenuItem>
+    <Text>Home</Text>
+    <Url>/</Url>
+  </MenuItem>
+  <MenuItem>
+    <Text>Cooking</Text>
+    <MenuItem>
+      <Text>Recipe List</Text>
+      <Url>/Recipes/Search</Url>
+    </MenuItem>
+    <MenuItem>
+      <Text>Manage Recipes</Text>
+      <Url>/ManageRecipes</Url>
+      <SecurityRole>ADMIN</SecurityRole>
+    </MenuItem>
+  </MenuItem>
+  <MenuItem>
+    <Text>Manage Users</Text>
+    <Url>/ManageUsers</Url>
+    <SecurityRole>ADMIN</SecurityRole>
+  </MenuItem>
+  <MenuItem Authenticated="0">
+    <Text>Login</Text>
+    <Url>/Login</Url>
+  </MenuItem>
+  <MenuItem Authenticated="1">
+    <Text>Logout</Text>
+    <Url>/Home/Logout</Url>
+  </MenuItem>
+</TopNavigation>

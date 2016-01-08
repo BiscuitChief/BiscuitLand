@@ -1,0 +1,81 @@
+﻿@model BiscuitChief.Models.Recipe
+
+@{
+    ViewBag.Title = "Recipe";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="RecipeHeading">
+        <div class="Title">
+            @Model.Title
+        </div>
+        @if (!String.IsNullOrEmpty(Model.Description))
+        {
+            <div class="Description">
+                @Model.Description
+            </div>
+        }
+    </div>
+    <b>Quantity:</b>
+    @Html.DropDownListFor(model => model.Quantity, (IEnumerable<SelectListItem>)ViewBag.QuantityValues)
+    <br/><br/>
+    <b>Ingredients:</b>
+    <ul class="IngredientsList">
+        @foreach (BiscuitChief.Models.RecipeIngredient item in Model.IngredientList)
+        {
+            if (item.DisplayType == BiscuitChief.Models.Recipe.DisplayTypeCodes.HDR)
+            {
+                <li class="Header">
+                    @item.IngredientName
+                </li>
+            }
+            else
+            {
+                <li class="Ingredient">
+                    @item.DisplayQuantity @item.UnitOfMeasure
+                    @item.IngredientName
+                    @((!String.IsNullOrEmpty(item.Notes)) ? " : " : "")
+                    @item.Notes
+                </li>
+            }
+        }
+    </ul>
+
+    <br/>
+    <b>Directions:</b>
+    <ul class="DirectionsList">
+        @foreach (BiscuitChief.Models.RecipeDirection item in Model.DirectionList)
+        {
+            if (item.DisplayType == BiscuitChief.Models.Recipe.DisplayTypeCodes.HDR)
+            {
+                <li class="Header">
+                    @item.DirectionText
+                </li>
+            }
+            else
+            {
+                <li class="Direction">
+                    @item.DirectionText
+                </li>
+            }
+        }
+    </ul>
+
+    @Html.HiddenFor(model => model.RecipeID);
+
+    <script language="javascript" type="text/javascript">
+        
+        $("#Quantity").change(function () {
+
+            var id = $("#RecipeID").val();
+            var qty = $("#Quantity").val();
+
+            window.open('@Url.Action("Recipe", "Recipes")?recipeid=' + id + "&quantity=" + qty, "_self");
+        });
+
+    </script>
+
+}

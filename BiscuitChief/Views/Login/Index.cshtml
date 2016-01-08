@@ -1,0 +1,23 @@
+﻿@model BiscuitChief.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div>
+        Please enter your login information below.
+        <br /><br />
+        @Html.LabelFor(model => model.UserName) @Html.TextBoxFor(model => model.UserName) @Html.ValidationMessageFor(model => model.UserName)
+        <br /><br />
+        @Html.LabelFor(model => model.Password) @Html.PasswordFor(model => model.Password) @Html.ValidationMessageFor(model => model.Password)
+        <br /><br />
+        <input type="submit" id="btnSubmit" value="Submit" />
+    </div>
+}
+
+
+

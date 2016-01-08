@@ -1,0 +1,50 @@
+﻿@model BiscuitChief.Models.RecipeSearch
+
+@{
+    ViewBag.Title = "Recipe List";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="PageTitle">Recipe List</div>
+
+    <ul class="InputRow">
+        <li class="InputLabel">@Html.LabelFor(model => model.SearchText):</li>
+        <li class="InputField">@Html.TextBoxFor(model => model.SearchText)</li>
+    </ul>
+    <input type="submit" class="BtnSubmit" id="btn-submit" value="Search" />
+    <br/><br/>
+    <div id="SearchResults">
+        <div id="SearchResultsHeading">
+            @Model.SearchResultText
+        </div>
+
+        @foreach (BiscuitChief.Models.Recipe item in Model.SearchResults)
+        {
+            <div id="SearchItem">
+                <div id="SearchTitle" onclick="javascript:ViewRecipe('@item.RecipeID');">
+                    @item.Title
+                </div>
+                @if (!String.IsNullOrEmpty(item.Description))
+                {
+                    <div id="SearchDescription">
+                        @item.Description
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+
+    <script language="javascript" type="text/javascript">
+
+        function ViewRecipe(id)
+        {
+            window.open('@Url.Action("Recipe", "Recipes")?recipeid=' + id, "_self");
+        }
+
+    </script>
+    
+}
