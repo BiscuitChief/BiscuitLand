@@ -31,7 +31,7 @@ namespace BiscuitChief.Controllers
             return View(searchdata);
         }
 
-        public ActionResult Recipe(int recipeid, decimal quantity = 1)
+        public ActionResult Recipe(string recipeid, decimal quantity = 1)
         {
             List<SelectListItem> qtyvalues = new List<SelectListItem>();
             qtyvalues.Add(new SelectListItem() { Text = "1/2", Value = ".5" });

@@ -9,7 +9,7 @@ namespace BiscuitChief.Models
     {
         #region Public Properties
 
-        public int RecipeID { get; set; }
+        public string RecipeID { get; set; }
 
         public string Title { get; set; }
 

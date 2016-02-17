@@ -11,7 +11,7 @@ namespace BiscuitChief.Models
 
         public int DirectionID { get; set; }
 
-        public int RecipeID { get; set; }
+        public string RecipeID { get; set; }
 
         public int SortOrder { get; set; }
 

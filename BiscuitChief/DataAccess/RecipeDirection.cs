@@ -32,7 +32,7 @@ namespace BiscuitChief.Models
         private void LoadDataRow(DataRow dr)
         {
             this.DirectionID = Convert.ToInt32(dr["DirectionID"]);
-            this.RecipeID = Convert.ToInt32(dr["RecipeID"]);
+            this.RecipeID = dr["RecipeID"].ToString();
             this.DirectionText = dr["DirectionText"].ToString();
             this.SortOrder = Convert.ToInt32(dr["SortOrder"]);
             this.DisplayType = (Recipe.DisplayTypeCodes)(Enum.Parse(typeof(Recipe.DisplayTypeCodes), dr["DisplayType"].ToString()));

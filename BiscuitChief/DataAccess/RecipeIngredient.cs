@@ -33,7 +33,7 @@ namespace BiscuitChief.Models
         private void LoadDataRow(DataRow dr)
         {
             this.IngredientID = Convert.ToInt32(dr["IngredientID"]);
-            this.RecipeID = Convert.ToInt32(dr["RecipeID"]);
+            this.RecipeID = dr["RecipeID"].ToString();
             this.IngredientName = dr["IngredientName"].ToString();
             this.Quantity = Convert.ToDecimal(PortalUtility.CheckDbNull(dr["Quantity"]));
             this.UnitOfMeasure = dr["UnitOfMeasure"].ToString();

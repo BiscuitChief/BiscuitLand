@@ -5,8 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Web.Configuration;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace BiscuitChief.Models
 {
@@ -16,17 +17,17 @@ namespace BiscuitChief.Models
 
         public Recipe() { }
 
-        public Recipe(int _recipeid, decimal _quantity = 1)
+        public Recipe(string _recipeid, decimal _quantity = 1)
         {
             DataSet ds = new DataSet();
-            SqlDataAdapter da;
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
+            MySqlDataAdapter da;
+            using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Recipe.Select_Recipe", conn);
+                MySqlCommand cmd = new MySqlCommand("Recipe_Select_Recipe", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RecipeID", _recipeid);
-                da = new SqlDataAdapter(cmd);
+                cmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                da = new MySqlDataAdapter(cmd);
                 da.Fill(ds, "Recipe");
 
                     if (ds.Tables["Recipe"].Rows.Count > 0)
@@ -35,22 +36,22 @@ namespace BiscuitChief.Models
                         LoadDataRow(dr);
                     }
 
-                if (this.RecipeID > 0)
+                if (!String.IsNullOrEmpty(this.RecipeID))
                 {
-                    cmd = new SqlCommand("Recipe.Select_RecipeIngredients", conn);
+                    cmd = new MySqlCommand("Recipe_Select_RecipeIngredients", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@RecipeID", _recipeid);
-                    da = new SqlDataAdapter(cmd);
+                    cmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                    da = new MySqlDataAdapter(cmd);
                     da.Fill(ds, "Ingredients");
 
                     this.IngredientList = new List<RecipeIngredient>();
                     foreach (DataRow dr in ds.Tables["Ingredients"].Rows)
                     { this.IngredientList.Add(new RecipeIngredient(dr)); }
 
-                    cmd = new SqlCommand("Recipe.Select_RecipeDirections", conn);
+                    cmd = new MySqlCommand("Recipe_Select_RecipeDirections", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@RecipeID", _recipeid);
-                    da = new SqlDataAdapter(cmd);
+                    cmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                    da = new MySqlDataAdapter(cmd);
                     da.Fill(ds, "Directions");
 
                     this.DirectionList = new List<RecipeDirection>();
@@ -83,14 +84,14 @@ namespace BiscuitChief.Models
             { ingsearchlist += ing + "|"; }
 
             DataSet ds = new DataSet();
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
+            using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Recipe.Select_RecipeSearch", conn);
+                MySqlCommand cmd = new MySqlCommand("Recipe_Select_RecipeSearch", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@SearchText", _searchtext);
-                cmd.Parameters.AddWithValue("@Ingredients", ingsearchlist);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.Parameters.AddWithValue("@pSearchText", _searchtext);
+                cmd.Parameters.AddWithValue("@pIngredients", ingsearchlist);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 da.Fill(ds, "Recipes");
 
                 foreach (DataRow dr in ds.Tables["Recipes"].Rows)
@@ -104,11 +105,11 @@ namespace BiscuitChief.Models
         {
             Dictionary<decimal, string> conversionchart = new Dictionary<decimal, string>();
 
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
+            using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Recipe.Select_QuantityConversion", conn);
-                SqlDataReader dr = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand("Recipe_Select_QuantityConversion", conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     decimal keyvalue = TruncateQuantity(Convert.ToDecimal(dr["QuantityDecimal"]));
@@ -155,7 +156,7 @@ namespace BiscuitChief.Models
 
         private void LoadDataRow(DataRow dr)
         {
-            this.RecipeID = Convert.ToInt32(dr["RecipeID"]);
+            this.RecipeID = dr["RecipeID"].ToString();
             this.Title = dr["Title"].ToString();
             this.Description = dr["Description"].ToString();
         }

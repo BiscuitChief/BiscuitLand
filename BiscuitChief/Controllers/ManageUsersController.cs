@@ -8,13 +8,15 @@ namespace BiscuitChief.Controllers
 {
     public class ManageUsersController : Controller
     {
-        // GET: ManaageUsers
+        // GET: ManageUsers
+        [Authorize(Roles="ADMIN")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost()]
+        [Authorize(Roles = "ADMIN")]
         [ValidateAntiForgeryToken()]
         public ActionResult Index(BiscuitChief.Models.Login login, string ReturnUrl = "")
         {

@@ -1,0 +1,8 @@
+﻿@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @ViewBag.ResultMessage
+    </div>
+}

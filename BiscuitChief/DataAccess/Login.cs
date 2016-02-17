@@ -5,7 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using System.Web.Configuration;
 
 namespace BiscuitChief.Models
@@ -18,13 +19,13 @@ namespace BiscuitChief.Models
 
         public Login(string username)
         {
-            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
+            using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Security.Select_User", conn);
+                MySqlCommand cmd = new MySqlCommand("Security_Select_User", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Username", username);
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                cmd.Parameters.AddWithValue("@pUsername", username);
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     if (dr.Read())
                     {
@@ -67,15 +68,15 @@ namespace BiscuitChief.Models
 
                 try
                 {
-                    using (SqlConnection conn = new SqlConnection(PortalUtility.GetConnectionString("default")))
+                    using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
                     {
                         conn.Open();
 
-                        SqlCommand cmd = new SqlCommand("Security.Insert_User", conn);
+                        MySqlCommand cmd = new MySqlCommand("Security_Insert_User", conn);
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Username", this.UserName);
-                        cmd.Parameters.AddWithValue("@Password", this.Password);
-                        cmd.Parameters.AddWithValue("@EncryptionSeed", this.EncryptionSeed);
+                        cmd.Parameters.AddWithValue("@pUsername", this.UserName);
+                        cmd.Parameters.AddWithValue("@pPassword", this.Password);
+                        cmd.Parameters.AddWithValue("@pEncryptionSeed", this.EncryptionSeed);
                         cmd.ExecuteNonQuery();
                         conn.Close();
 

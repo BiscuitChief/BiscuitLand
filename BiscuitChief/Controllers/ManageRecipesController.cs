@@ -8,6 +8,7 @@ namespace BiscuitChief.Controllers
 {
     public class ManageRecipesController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             ViewBag.Message = "Manage Recipes page.";
