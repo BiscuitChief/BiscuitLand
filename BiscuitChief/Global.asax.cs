@@ -8,7 +8,8 @@ using System.Web.Routing;
 using System.Security.Principal;
 using System.Security;
 using System.Web.Security;
-using System.Data.SqlClient;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace BiscuitChief
@@ -127,13 +128,13 @@ namespace BiscuitChief
             string rolelist = string.Empty;
 
             //build a delimited string of the roles
-            using (SqlConnection conn = new SqlConnection(PortalUtility.GetConnectionString("default")))
+            using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Security.Select_UserRoles", conn);
+                MySqlCommand cmd = new MySqlCommand("Security_Select_UserRoles", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Username", userid);
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                cmd.Parameters.AddWithValue("@pUsername", userid);
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {

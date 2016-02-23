@@ -21,6 +21,8 @@ namespace BiscuitChief.Models
 
         public List<RecipeDirection> DirectionList { get; set; }
 
+        public Dictionary<String, String> CategoryList { get; set; }
+
         #endregion
 
         #region Private Properties

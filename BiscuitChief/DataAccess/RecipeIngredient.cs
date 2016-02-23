@@ -34,10 +34,10 @@ namespace BiscuitChief.Models
         {
             this.IngredientID = Convert.ToInt32(dr["IngredientID"]);
             this.RecipeID = dr["RecipeID"].ToString();
-            this.IngredientName = dr["IngredientName"].ToString();
+            this.IngredientName = dr["IngredientName"].ToString().Trim();
             this.Quantity = Convert.ToDecimal(PortalUtility.CheckDbNull(dr["Quantity"]));
-            this.UnitOfMeasure = dr["UnitOfMeasure"].ToString();
-            this.Notes = dr["Notes"].ToString();
+            this.UnitOfMeasure = dr["UnitOfMeasure"].ToString().Trim();
+            this.Notes = dr["Notes"].ToString().Trim();
             this.SortOrder = Convert.ToInt32(dr["SortOrder"]);
             this.DisplayType = (Recipe.DisplayTypeCodes)(Enum.Parse(typeof(Recipe.DisplayTypeCodes), dr["DisplayType"].ToString()));
         }

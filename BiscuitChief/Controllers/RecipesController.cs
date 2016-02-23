@@ -25,7 +25,7 @@ namespace BiscuitChief.Controllers
         {
             if (ModelState.IsValid)
             {
-                searchdata.SearchResults = Models.Recipe.SearchRecipes(searchdata.SearchText, new string[] { });
+                searchdata.SearchResults = Models.Recipe.SearchRecipes(searchdata.SearchText, new string[] { }, new string[] { });
                 searchdata.SearchResultText = searchdata.SearchResults.Count.ToString() + " Recipies Found";
             }
             return View(searchdata);

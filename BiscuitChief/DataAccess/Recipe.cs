@@ -57,6 +57,16 @@ namespace BiscuitChief.Models
                     this.DirectionList = new List<RecipeDirection>();
                     foreach (DataRow dr in ds.Tables["Directions"].Rows)
                     { this.DirectionList.Add(new RecipeDirection(dr)); }
+
+                    cmd = new MySqlCommand("Recipe_Select_Categories", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                    da = new MySqlDataAdapter(cmd);
+                    da.Fill(ds, "Categories");
+
+                    this.CategoryList = new Dictionary<string, string>();
+                    foreach (DataRow dr in ds.Tables["Categories"].Rows)
+                    { this.CategoryList.Add(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString()); }
                 }
 
                 conn.Close();
@@ -75,13 +85,17 @@ namespace BiscuitChief.Models
 
         #region Public Methods
 
-        public static List<Recipe> SearchRecipes(string _searchtext, string[] _ingredients)
+        public static List<Recipe> SearchRecipes(string _searchtext, string[] _ingredients, string[] _categories)
         {
             List<Recipe> results = new List<Recipe>();
 
             string ingsearchlist = String.Empty;
             foreach (string ing in _ingredients)
             { ingsearchlist += ing + "|"; }
+
+            string ctgsearchlist = String.Empty;
+            foreach (string ctg in _categories)
+            { ctgsearchlist += ctg + "|"; }
 
             DataSet ds = new DataSet();
             using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
@@ -91,6 +105,7 @@ namespace BiscuitChief.Models
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@pSearchText", _searchtext);
                 cmd.Parameters.AddWithValue("@pIngredients", ingsearchlist);
+                cmd.Parameters.AddWithValue("@pCategories", ctgsearchlist);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 da.Fill(ds, "Recipes");
 
@@ -108,7 +123,7 @@ namespace BiscuitChief.Models
             using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("Recipe_Select_QuantityConversion", conn);
+                MySqlCommand cmd = new MySqlCommand("Lookup_Select_QuantityConversion", conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -157,8 +172,8 @@ namespace BiscuitChief.Models
         private void LoadDataRow(DataRow dr)
         {
             this.RecipeID = dr["RecipeID"].ToString();
-            this.Title = dr["Title"].ToString();
-            this.Description = dr["Description"].ToString();
+            this.Title = dr["Title"].ToString().Trim();
+            this.Description = dr["Description"].ToString().Trim();
         }
 
         /// <summary>

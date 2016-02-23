@@ -33,7 +33,7 @@ namespace BiscuitChief.Models
         {
             this.DirectionID = Convert.ToInt32(dr["DirectionID"]);
             this.RecipeID = dr["RecipeID"].ToString();
-            this.DirectionText = dr["DirectionText"].ToString();
+            this.DirectionText = dr["DirectionText"].ToString().Trim();
             this.SortOrder = Convert.ToInt32(dr["SortOrder"]);
             this.DisplayType = (Recipe.DisplayTypeCodes)(Enum.Parse(typeof(Recipe.DisplayTypeCodes), dr["DisplayType"].ToString()));
         }
