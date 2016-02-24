@@ -12,6 +12,15 @@
         <div class="Title">
             @Model.Title
         </div>
+        @if (Model.CategoryList.Count > 0)
+        {
+            <div class="CategoryList">
+                @foreach (KeyValuePair<string, string> cat in Model.CategoryList)
+                {
+                    @cat.Value
+                }
+            </div>
+        }
         @if (!String.IsNullOrEmpty(Model.Description))
         {
             <div class="Description">

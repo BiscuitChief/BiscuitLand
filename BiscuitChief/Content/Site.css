@@ -215,6 +215,11 @@ textarea {
     padding:5px 0px 5px 0px;
 }
 
+#SearchItem
+{
+    padding-bottom:5px;
+}
+
 #SearchItem #SearchTitle
 {
     padding:5px;
@@ -236,6 +241,17 @@ textarea {
     padding:5px;
     font-size:12px;
     border:2px solid #888888;
+    border-top:none;
+}
+
+#SearchItem #SearchCategories
+{
+    border:2px solid #888888;
+    border-top:none;
+    border-bottom:none;
+    padding:2px 5px 2px 5px;
+    font-size:11px;
+    background-color:#EEEEEE;
 }
 
 .RecipeHeading
@@ -248,6 +264,12 @@ textarea {
 {
     font-weight:bold;
     font-size:14px;
+    padding-bottom:5px;
+}
+
+.RecipeHeading .CategoryList
+{
+    font-size:11px;
     padding-bottom:5px;
 }
 

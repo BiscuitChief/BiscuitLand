@@ -14,6 +14,18 @@
         <li class="InputLabel">@Html.LabelFor(model => model.SearchText):</li>
         <li class="InputField">@Html.TextBoxFor(model => model.SearchText)</li>
     </ul>
+    
+    <div>
+        @for (int i = 0; i < Model.SearchCategoryList.Count; i++)
+        {
+            @Html.HiddenFor(item => Model.SearchCategoryList[i].CategoryCode)
+            @Html.HiddenFor(item => Model.SearchCategoryList[i].CategoryName)
+            @Model.SearchCategoryList[i].CategoryName
+            @Html.CheckBoxFor(item => Model.SearchCategoryList[i].IsSelected)
+            <span>&nbsp;</span>
+        }
+    </div>
+    <br/>
     <input type="submit" class="BtnSubmit" id="btn-submit" value="Search" />
     <br/><br/>
     <div id="SearchResults">
@@ -27,6 +39,16 @@
                 <div id="SearchTitle" onclick="javascript:ViewRecipe('@item.RecipeID');">
                     @item.Title
                 </div>
+                @if (item.CategoryList.Count > 0)
+                {
+                    <div id="SearchCategories">
+                        @foreach (KeyValuePair<string, string> cat in item.CategoryList)
+                        {
+                            @cat.Value
+                            <span>&nbsp;</span>
+                        }
+                    </div>
+                }
                 @if (!String.IsNullOrEmpty(item.Description))
                 {
                     <div id="SearchDescription">

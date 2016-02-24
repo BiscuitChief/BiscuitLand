@@ -109,8 +109,25 @@ namespace BiscuitChief.Models
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 da.Fill(ds, "Recipes");
 
+                Recipe newrcp;
+                string[] catlist;
+                string[] catitem;
+
                 foreach (DataRow dr in ds.Tables["Recipes"].Rows)
-                { results.Add(new Recipe(dr)); }
+                {
+                    newrcp = new Recipe(dr);
+                    //The category list is returned in the format of: catcode::catname||catcode::catname||
+                    newrcp.CategoryList = new Dictionary<string, string>();
+                    catlist = dr["CategoryList"].ToString().Split(new string[] {"||"}, StringSplitOptions.RemoveEmptyEntries);
+                    foreach(string category in catlist)
+                    {
+                        catitem = category.Split(new string[] {"::"}, StringSplitOptions.RemoveEmptyEntries);
+                        newrcp.CategoryList.Add(catitem[0], catitem[1]);
+                    }
+
+                    results.Add(newrcp);
+                }
+
             }
 
             return results;

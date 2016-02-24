@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Sql;
-using System.Data.SqlClient;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using System.Data;
+using System.Web.Configuration;
 
 namespace BiscuitChief.Controllers
 {
@@ -16,6 +17,22 @@ namespace BiscuitChief.Controllers
         {
             Models.RecipeSearch searchdata = new Models.RecipeSearch();
             searchdata.SearchResults = new List<Models.Recipe>();
+            searchdata.SearchCategoryList = new List<Models.RecipeSearch.CategorySelector>();
+
+            using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand("Lookup_Select_Categories", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    searchdata.SearchCategoryList.Add(new Models.RecipeSearch.CategorySelector(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString(), false));
+                }
+                dr.Close();
+            }
+
             return View(searchdata);
         }
 
@@ -25,7 +42,8 @@ namespace BiscuitChief.Controllers
         {
             if (ModelState.IsValid)
             {
-                searchdata.SearchResults = Models.Recipe.SearchRecipes(searchdata.SearchText, new string[] { }, new string[] { });
+                string [] categories = (from itm in searchdata.SearchCategoryList where itm.IsSelected select itm.CategoryCode).ToArray();
+                searchdata.SearchResults = Models.Recipe.SearchRecipes(searchdata.SearchText, new string[] { }, categories);
                 searchdata.SearchResultText = searchdata.SearchResults.Count.ToString() + " Recipies Found";
             }
             return View(searchdata);
