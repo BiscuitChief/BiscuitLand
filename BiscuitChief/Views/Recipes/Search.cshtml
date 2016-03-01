@@ -33,26 +33,26 @@
             @Model.SearchResultText
         </div>
 
-        @foreach (BiscuitChief.Models.Recipe item in Model.SearchResults)
+        @for (int i = 0; i < Model.SearchResults.Count; i++)
         {
             <div id="SearchItem">
-                <div id="SearchTitle" onclick="javascript:ViewRecipe('@item.RecipeID');">
-                    @item.Title
+                <div id="SearchTitle" onclick="javascript:ViewRecipe('@Model.SearchResults[i].RecipeID');">
+                    @Model.SearchResults[i].Title
                 </div>
-                @if (item.CategoryList.Count > 0)
+                @if (Model.SearchResults[i].CategoryList.Count > 0)
                 {
                     <div id="SearchCategories">
-                        @foreach (KeyValuePair<string, string> cat in item.CategoryList)
+                        @for (int c = 0; c < Model.SearchResults[i].CategoryList.Count; c++)
                         {
-                            @cat.Value
+                            @Model.SearchResults[i].CategoryList[c].CategoryName
                             <span>&nbsp;</span>
                         }
                     </div>
                 }
-                @if (!String.IsNullOrEmpty(item.Description))
+                @if (!String.IsNullOrEmpty(Model.SearchResults[i].Description))
                 {
                     <div id="SearchDescription">
-                        @item.Description
+                        @Model.SearchResults[i].Description
                     </div>
                 }
             </div>

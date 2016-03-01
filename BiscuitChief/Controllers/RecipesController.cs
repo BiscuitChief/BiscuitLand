@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Web.Configuration;
 
+
 namespace BiscuitChief.Controllers
 {
     public class RecipesController : Controller
@@ -17,7 +18,7 @@ namespace BiscuitChief.Controllers
         {
             Models.RecipeSearch searchdata = new Models.RecipeSearch();
             searchdata.SearchResults = new List<Models.Recipe>();
-            searchdata.SearchCategoryList = new List<Models.RecipeSearch.CategorySelector>();
+            searchdata.SearchCategoryList = new List<Models.Recipe.Category>();
 
             using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
             {
@@ -28,7 +29,7 @@ namespace BiscuitChief.Controllers
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    searchdata.SearchCategoryList.Add(new Models.RecipeSearch.CategorySelector(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString(), false));
+                    searchdata.SearchCategoryList.Add(new Models.Recipe.Category(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString(), false));
                 }
                 dr.Close();
             }

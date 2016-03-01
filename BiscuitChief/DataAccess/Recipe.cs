@@ -64,9 +64,9 @@ namespace BiscuitChief.Models
                     da = new MySqlDataAdapter(cmd);
                     da.Fill(ds, "Categories");
 
-                    this.CategoryList = new Dictionary<string, string>();
+                    this.CategoryList = new List<Recipe.Category>();
                     foreach (DataRow dr in ds.Tables["Categories"].Rows)
-                    { this.CategoryList.Add(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString()); }
+                    { this.CategoryList.Add(new Recipe.Category(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString())); }
                 }
 
                 conn.Close();
@@ -117,12 +117,12 @@ namespace BiscuitChief.Models
                 {
                     newrcp = new Recipe(dr);
                     //The category list is returned in the format of: catcode::catname||catcode::catname||
-                    newrcp.CategoryList = new Dictionary<string, string>();
+                    newrcp.CategoryList = new List<Recipe.Category>();
                     catlist = dr["CategoryList"].ToString().Split(new string[] {"||"}, StringSplitOptions.RemoveEmptyEntries);
                     foreach(string category in catlist)
                     {
                         catitem = category.Split(new string[] {"::"}, StringSplitOptions.RemoveEmptyEntries);
-                        newrcp.CategoryList.Add(catitem[0], catitem[1]);
+                        newrcp.CategoryList.Add(new Recipe.Category(catitem[0], catitem[1]));
                     }
 
                     results.Add(newrcp);

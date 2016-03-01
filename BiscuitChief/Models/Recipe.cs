@@ -21,7 +21,7 @@ namespace BiscuitChief.Models
 
         public List<RecipeDirection> DirectionList { get; set; }
 
-        public Dictionary<String, String> CategoryList { get; set; }
+        public List<Category> CategoryList { get; set; }
 
         #endregion
 
@@ -29,5 +29,44 @@ namespace BiscuitChief.Models
         #endregion
 
         public enum DisplayTypeCodes { ING, DIR, HDR }
+
+        public class Category
+        {
+            public Category() { }
+            
+            /// <summary>
+            /// Standard constructor, if we are only loading the categories assigned to the recipe they are selected by default
+            /// </summary>
+            /// <param name="_categorycode"></param>
+            /// <param name="_categoryname"></param>
+            public Category(string _categorycode, string _categoryname)
+            {
+                LoadData(_categorycode, _categoryname, true);
+            }
+
+            /// <summary>
+            /// Overloaded constructor if we want a list of all categories
+            /// </summary>
+            /// <param name="_categorycode"></param>
+            /// <param name="_categoryname"></param>
+            /// <param name="_isselected"></param>
+            public Category(string _categorycode, string _categoryname, bool _isselected)
+            {
+                LoadData(_categorycode, _categoryname, _isselected);
+            }
+
+            private void LoadData(string _categorycode, string _categoryname, bool _isselected)
+            {
+                this.CategoryCode = _categorycode;
+                this.CategoryName = _categoryname;
+                this.IsSelected = _isselected;
+            }
+
+            public string CategoryCode { get; set; }
+
+            public string CategoryName { get; set; }
+
+            public bool IsSelected { get; set; }
+        }
     }
 }

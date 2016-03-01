@@ -17,7 +17,7 @@ namespace BiscuitChief.Models
         [Display(Name = "Ingredient List")]
         public List<string> SearchIngredientList { get; set; }
 
-        public List<CategorySelector> SearchCategoryList { get; set; }
+        public List<Recipe.Category> SearchCategoryList { get; set; }
 
         public bool PerformSearch { get; set; }
 
@@ -25,27 +25,15 @@ namespace BiscuitChief.Models
 
         public string SearchResultText { get; set; }
 
+        public int PageSize { get; set; }
+
+        public int PageNumber { get; set; }
+
+        public int PageCount { get; set; }
+
         #endregion
 
         #region Private Properties
         #endregion
-
-        public class CategorySelector
-        {
-            public CategorySelector() { }
-
-            public CategorySelector(string _categorycode, string _categoryname, bool _isselected)
-            {
-                this.CategoryCode = _categorycode;
-                this.CategoryName = _categoryname;
-                this.IsSelected = _isselected;
-            }
-
-            public string CategoryCode { get; set; }
-
-            public string CategoryName { get; set; }
-
-            public bool IsSelected { get; set; }
-        }
     }
 }
