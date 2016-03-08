@@ -334,3 +334,26 @@ textarea {
     content: counter(dircounter) ": ";
 	counter-increment: dircounter;
 }
+
+.Pager .Selector
+{
+    display:inline;
+    padding:2px 4px 2px 4px;
+    border:2px solid #4800ff;
+    background-color:#EEEEEE;
+}
+
+.Pager .Selector:hover
+{
+    background-color:#AAAAAA;
+    cursor:pointer;
+}
+
+.Pager .CurrentPage, .Pager .CurrentPage:hover
+{
+    background-color:#4800ff !important;
+    color:#FFFFFF;
+    font-weight:bold;
+    cursor:default !important;
+}
+

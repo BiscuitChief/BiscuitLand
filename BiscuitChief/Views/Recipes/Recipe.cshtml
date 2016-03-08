@@ -15,9 +15,9 @@
         @if (Model.CategoryList.Count > 0)
         {
             <div class="CategoryList">
-                @foreach (KeyValuePair<string, string> cat in Model.CategoryList)
+                @foreach (BiscuitChief.Models.Recipe.Category cat in Model.CategoryList)
                 {
-                    @cat.Value
+                    @cat.CategoryName
                 }
             </div>
         }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Configuration;
+using System.Collections;
 
 namespace BiscuitChief
 {
@@ -137,5 +138,84 @@ namespace BiscuitChief
 
         #endregion
 
+        public class PagerHelper
+        {
+            public static int GetPageCount(int pagesize, int itemcount)
+            {
+                int returnval = 0;
+
+                returnval = itemcount / pagesize;
+                if ((itemcount % pagesize) > 0 || returnval == 0)
+                { returnval++; }
+
+                return returnval;
+            }
+
+            public static int GetPagerStart(int currentpage, int pagespread, int pagecount)
+            {
+                int returnval = 0;
+
+                int pagesright = pagecount - currentpage;
+                int pagesleft = pagespread;
+                if (pagesright < pagespread)
+                { pagesleft = pagesleft + pagespread - pagesright; }
+
+                returnval = currentpage - pagesleft;
+                if (returnval <= 0)
+                { returnval = 1; }
+
+                return returnval;
+            }
+
+            public static int GetPagerEnd(int currentpage, int pagespread, int pagecount)
+            {
+                int returnval = 0;
+
+                int pagesright = pagespread;
+                int pagesleft = currentpage - 1;
+                if (pagesleft < pagespread)
+                { pagesright = pagesright + pagespread - pagesleft; }
+
+                returnval = currentpage + pagesright;
+                if (returnval > pagecount)
+                { returnval = pagecount; }
+
+                return returnval;
+            }
+
+            public static int GetPreviousPage(int currentpage)
+            {
+                int returnval = 0;
+
+                returnval = currentpage - 1;
+                if (currentpage < 1)
+                { currentpage = 1; }
+
+                return returnval;
+            }
+
+            public static int GetNextPage(int currentpage, int pagecount)
+            {
+                int returnval = 0;
+
+                returnval = currentpage + 1;
+                if (currentpage > pagecount)
+                { currentpage = pagecount; }
+
+                return returnval;
+            }
+
+            public static int CheckPageValid(int currentpage, int pagecount)
+            {
+                int returnval = currentpage;
+
+                if (returnval < 1)
+                { returnval = 1; }
+                else if (returnval > pagecount)
+                { returnval = pagecount; }
+
+                return returnval;
+            }
+        }
     }
 }

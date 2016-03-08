@@ -26,7 +26,7 @@
         }
     </div>
     <br/>
-    <input type="submit" class="BtnSubmit" id="btn-submit" value="Search" />
+    <input type="button" class="BtnSubmit" id="btn-submit" value="Search" onclick="SearchRecipes(1)" />
     <br/><br/>
     <div id="SearchResults">
         <div id="SearchResultsHeading">
@@ -58,6 +58,35 @@
             </div>
         }
 
+        @if (Model.SearchResults.Count > 0)
+        {
+            <br/>
+            <div class="Pager">
+                @if (Model.PageNumber > 1)
+                {
+                    <div class="Selector" onclick="SearchRecipes(1);">&lt;&lt;</div>
+                    <div class="Selector" onclick="SearchRecipes(@PortalUtility.PagerHelper.GetPreviousPage(Model.PageNumber));">&lt;</div>
+                }
+                @for (int i = PortalUtility.PagerHelper.GetPagerStart(Model.PageNumber, 2, Model.PageCount); i <= PortalUtility.PagerHelper.GetPagerEnd(Model.PageNumber, 2, Model.PageCount); i++)
+                {
+                    if (i == Model.PageNumber)
+                    { <div class="Selector CurrentPage">@i</div> }
+                    else
+                    { <div class="Selector" onclick="SearchRecipes(@i);">@i</div> }
+
+                }
+                @if (Model.PageNumber < Model.PageCount)
+                {
+                    <div class="Selector" onclick="SearchRecipes(@PortalUtility.PagerHelper.GetNextPage(Model.PageNumber, Model.PageCount));">&gt;</div>
+                    <div class="Selector" onclick="SearchRecipes(@Model.PageCount);">&gt;&gt;</div>
+                }
+            </div>
+        }
+
+        @Html.HiddenFor(item => Model.PageCount)
+        @Html.HiddenFor(item => Model.PageNumber)
+        @Html.HiddenFor(item => Model.PageSize)
+
     </div>
 
     <script language="javascript" type="text/javascript">
@@ -65,6 +94,12 @@
         function ViewRecipe(id)
         {
             window.open('@Url.Action("Recipe", "Recipes")?recipeid=' + id, "_self");
+        }
+
+        function SearchRecipes(pagenum)
+        {
+            $("#PageNumber").val(pagenum);
+            $("form").submit();
         }
 
     </script>

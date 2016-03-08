@@ -19,6 +19,9 @@ namespace BiscuitChief.Controllers
             Models.RecipeSearch searchdata = new Models.RecipeSearch();
             searchdata.SearchResults = new List<Models.Recipe>();
             searchdata.SearchCategoryList = new List<Models.Recipe.Category>();
+            searchdata.PageCount = 1;
+            searchdata.PageNumber = 1;
+            searchdata.PageSize = 1;
 
             using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
             {
@@ -44,8 +47,23 @@ namespace BiscuitChief.Controllers
             if (ModelState.IsValid)
             {
                 string [] categories = (from itm in searchdata.SearchCategoryList where itm.IsSelected select itm.CategoryCode).ToArray();
-                searchdata.SearchResults = Models.Recipe.SearchRecipes(searchdata.SearchText, new string[] { }, categories);
-                searchdata.SearchResultText = searchdata.SearchResults.Count.ToString() + " Recipies Found";
+                List<Models.Recipe> allresults = Models.Recipe.SearchRecipes(searchdata.SearchText, new string[] { }, categories);
+                searchdata.SearchResultText = allresults.Count.ToString() + " Recipies Found";
+                searchdata.PageSize = 10;
+                searchdata.PageCount = PortalUtility.PagerHelper.GetPageCount(searchdata.PageSize, allresults.Count);
+                searchdata.PageNumber = PortalUtility.PagerHelper.CheckPageValid(searchdata.PageNumber, searchdata.PageCount);
+                if (searchdata.PageNumber < 1)
+                { searchdata.PageNumber = 1; }
+                searchdata.SearchResults = new List<Models.Recipe>();
+
+                if (allresults.Count > 0)
+                {
+                    int startindex = ((searchdata.PageNumber - 1) * searchdata.PageSize);
+                    int range = searchdata.PageSize;
+                    if (startindex + range > allresults.Count)
+                    { range = allresults.Count - startindex; }
+                    searchdata.SearchResults = allresults.GetRange(startindex, range);
+                }
             }
             return View(searchdata);
         }
