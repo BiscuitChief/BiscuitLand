@@ -19,8 +19,6 @@ namespace BiscuitChief.Models
 
         public List<Recipe.Category> SearchCategoryList { get; set; }
 
-        public bool PerformSearch { get; set; }
-
         public List<Recipe> SearchResults { get; set; }
 
         public string SearchResultText { get; set; }
