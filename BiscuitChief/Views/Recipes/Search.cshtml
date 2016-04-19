@@ -1,14 +1,23 @@
 ﻿@model BiscuitChief.Models.RecipeSearch
 
 @{
-    ViewBag.Title = "Recipe List";
+    ViewBag.Title = "Search Recipes";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="PageTitle">Recipe List</div>
+    <div class="PageTitle">
+        Recipe List
+
+        @if (HttpContext.Current.User.IsInRole("ADMIN"))
+        {
+            <span style="font-weight:normal; font-size:12px; padding-left:20px;">
+                @Html.ActionLink("< Create New >", "Create")
+            </span>
+        }
+    </div>
 
     <ul class="InputRow">
         <li class="InputLabel">@Html.LabelFor(model => model.SearchText):</li>
@@ -36,8 +45,14 @@
         @for (int i = 0; i < Model.SearchResults.Count; i++)
         {
             <div id="SearchItem">
-                <div id="SearchTitle" onclick="javascript:ViewRecipe('@Model.SearchResults[i].RecipeID');">
+                <div id="SearchTitle" style="clear:both;" onclick="javascript:ViewRecipe('@Model.SearchResults[i].RecipeID');">
                     @Model.SearchResults[i].Title
+                    @if (HttpContext.Current.User.IsInRole("ADMIN"))
+                    {
+                        <div style="font-weight:normal; font-size:12px; float:right;">
+                            @Html.ActionLink("< Edit >", "Create", new { recipeid = Model.SearchResults[i].RecipeID })
+                        </div>
+                    }
                 </div>
                 @if (Model.SearchResults[i].CategoryList.Count > 0)
                 {

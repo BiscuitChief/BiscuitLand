@@ -85,5 +85,21 @@ namespace BiscuitChief.Controllers
 
             return View(rcp);
         }
+
+        [Authorize(Roles = "ADMIN")]
+        public ActionResult Create(string recipeid = "")
+        {
+            if (String.IsNullOrEmpty(recipeid))
+            {
+                ViewBag.Title = "New Recipe";
+            }
+            else
+            {
+                ViewBag.Title = "Edit Recipe";
+            }
+            Models.Recipe rcp = new Models.Recipe();
+
+            return View(rcp);
+        }
     }
 }

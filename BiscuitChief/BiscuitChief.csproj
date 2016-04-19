@@ -199,6 +199,7 @@
     <Content Include="Views\Recipes\Search.cshtml" />
     <Content Include="Views\Recipes\Recipe.cshtml" />
     <Content Include="Views\AdminFunctions\CreateDataBackupScripts.cshtml" />
+    <Content Include="Views\Recipes\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

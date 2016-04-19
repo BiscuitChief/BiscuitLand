@@ -1,0 +1,12 @@
+﻿@model BiscuitChief.Models.Recipe
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="RecipeHeading">
+        <div class="Title">
+            @ViewBag.Title
+        </div>
+    </div>
+}
