@@ -89,6 +89,7 @@ namespace BiscuitChief.Controllers
         [Authorize(Roles = "ADMIN")]
         public ActionResult Create(string recipeid = "")
         {
+            Models.Recipe rcp = new Models.Recipe();
             if (String.IsNullOrEmpty(recipeid))
             {
                 ViewBag.Title = "New Recipe";
@@ -96,8 +97,8 @@ namespace BiscuitChief.Controllers
             else
             {
                 ViewBag.Title = "Edit Recipe";
+                rcp = new Models.Recipe(recipeid);
             }
-            Models.Recipe rcp = new Models.Recipe();
 
             return View(rcp);
         }

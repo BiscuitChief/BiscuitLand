@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BiscuitChief.Models
 {
@@ -11,8 +12,12 @@ namespace BiscuitChief.Models
 
         public string RecipeID { get; set; }
 
+        [Display(Name = "Title:")]
+        [Required(ErrorMessage = "Please enter a Title")]
         public string Title { get; set; }
 
+        [Display(Name = "Description:")]
+        [Required(ErrorMessage = "Please enter a Description")]
         public string Description { get; set; }
 
         public decimal Quantity { get; set; }
@@ -28,7 +33,15 @@ namespace BiscuitChief.Models
         #region Private Properties
         #endregion
 
-        public enum DisplayTypeCodes { ING, DIR, HDR }
+        public enum DisplayTypeCodes
+        {
+            [Display(Name = "Ingredient")]
+            ING,
+            [Display(Name = "Direction")]
+            DIR,
+            [Display(Name = "Header")]
+            HDR 
+        }
 
         public class Category
         {

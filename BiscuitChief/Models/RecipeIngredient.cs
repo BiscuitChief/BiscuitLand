@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BiscuitChief.Models
 {
@@ -13,16 +14,24 @@ namespace BiscuitChief.Models
 
         public string RecipeID { get; set; }
 
+        [Display(Name = "Ingredient Name:")]
+        [Required(ErrorMessage = "Please enter an Ingredient Name")]
         public string IngredientName { get; set; }
 
+        [Display(Name = "Quantity:")]
+        [Range(0, Double.MaxValue, ErrorMessage="Please enter a valid Quantity")]
         public decimal Quantity { get; set; }
 
         public string DisplayQuantity { get; set; }
 
+        [Display(Name = "Unit Of Measure:")]
         public string UnitOfMeasure { get; set; }
 
+        [Display(Name = "Display Style:")]
+        [Required(ErrorMessage = "Please enter a Display Style")]
         public Recipe.DisplayTypeCodes DisplayType { get; set; }
 
+        [Display(Name = "Notes:")]
         public string Notes { get; set; }
 
         public int SortOrder { get; set; }
@@ -31,5 +40,6 @@ namespace BiscuitChief.Models
 
         #region Private Properties
         #endregion
+
     }
 }

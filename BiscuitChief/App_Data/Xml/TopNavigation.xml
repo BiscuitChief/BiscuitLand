@@ -12,11 +12,6 @@
       <Text>Recipe List</Text>
       <Url>/Recipes/Search</Url>
     </MenuItem>
-    <MenuItem>
-      <Text>Manage Recipes</Text>
-      <Url>/ManageRecipes</Url>
-      <SecurityRole>ADMIN</SecurityRole>
-    </MenuItem>
   </MenuItem>
   <MenuItem>
     <Text>Manage Users</Text>
