@@ -27,8 +27,8 @@ namespace BiscuitChief.Models
         [Display(Name = "Unit Of Measure:")]
         public string UnitOfMeasure { get; set; }
 
-        [Display(Name = "Display Style:")]
-        [Required(ErrorMessage = "Please enter a Display Style")]
+        [Display(Name = "Display Type:")]
+        [Required(ErrorMessage = "Please enter a Display Type")]
         public Recipe.DisplayTypeCodes DisplayType { get; set; }
 
         [Display(Name = "Notes:")]

@@ -51,7 +51,7 @@
 
                    <div>@Html.ValidationMessageFor(item => Model.IngredientList[i].Quantity)</div>
                </li>
-                <li class="Seperator">
+                <li @((i < Model.IngredientList.Count - 1) ? "class=Seperator":"")>
                     @Html.LabelFor(item => Model.IngredientList[i].Notes)
                     @Html.TextBoxFor(item => Model.IngredientList[i].Notes, new { @style = "width: 455px; max-width: 100%;" })
                 </li>
@@ -68,7 +68,7 @@
                     @Html.LabelFor(item => Model.DirectionList[i].DisplayType)
                     @Html.EnumDropDownListFor(item => Model.DirectionList[i].DisplayType)
                 </li>
-                <li class="Seperator">
+                <li @((i < Model.DirectionList.Count - 1) ? "class=Seperator" : "")>
                     @Html.LabelFor(item => Model.DirectionList[i].DirectionText)
                     @Html.TextAreaFor(item => Model.DirectionList[i].DirectionText, new { @rows = 3, @cols = "", style = "width: 600px; max-width: 100%;" })
                 </li>

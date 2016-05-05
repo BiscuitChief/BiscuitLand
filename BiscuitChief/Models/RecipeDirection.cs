@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BiscuitChief.Models
 {
@@ -15,8 +16,12 @@ namespace BiscuitChief.Models
 
         public int SortOrder { get; set; }
 
+        [Display(Name = "Direction Text:")]
+        [Required(ErrorMessage = "Please enter a Direction Text")]
         public string DirectionText { get; set; }
 
+        [Display(Name = "Display Type:")]
+        [Required(ErrorMessage = "Please enter a Display Type")]
         public Recipe.DisplayTypeCodes DisplayType { get; set; }
 
         #endregion
