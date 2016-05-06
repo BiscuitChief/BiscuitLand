@@ -175,6 +175,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Recipes\Create.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -197,7 +200,8 @@
     <Content Include="Views\Recipes\Search.cshtml" />
     <Content Include="Views\Recipes\Recipe.cshtml" />
     <Content Include="Views\AdminFunctions\CreateDataBackupScripts.cshtml" />
-    <Content Include="Views\Recipes\Create.cshtml" />
+    <Content Include="Views\Recipes\PartialViews\CreateIngredientList.cshtml" />
+    <Content Include="Views\Recipes\PartialViews\CreateDirectionList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

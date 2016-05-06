@@ -20,7 +20,7 @@ namespace BiscuitChief.Models
 
         [Display(Name = "Quantity:")]
         [Range(0, Double.MaxValue, ErrorMessage="Please enter a valid Quantity")]
-        public decimal Quantity { get; set; }
+        public Nullable<decimal> Quantity { get; set; }
 
         public string DisplayQuantity { get; set; }
 

@@ -102,5 +102,20 @@ namespace BiscuitChief.Controllers
 
             return View(rcp);
         }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "ADMIN")]
+        public ActionResult Create(Models.Recipe rcp)
+        {
+            int index = 0;
+            foreach (Models.RecipeIngredient ing in rcp.IngredientList)
+            { ing.SortOrder = index++; }
+            index = 0;
+            foreach (Models.RecipeDirection dir in rcp.DirectionList)
+            { dir.SortOrder = index++; }
+
+            return View(rcp);
+        }
     }
 }

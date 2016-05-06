@@ -30,59 +30,38 @@
         <div class="FormSection">
             Ingredients
         </div>
-        <ul class="FormFields">
-            @for (int i = 0; i < Model.IngredientList.Count; i++)
-            {
-                <li>
-                    @Html.HiddenFor(item => Model.IngredientList[i].IngredientID)
-                    @Html.LabelFor(item => Model.IngredientList[i].IngredientName)
-                    @Html.TextBoxFor(item => Model.IngredientList[i].IngredientName, new { @style = "margin-right:30px;" })
-                    
-                    @Html.LabelFor(item => Model.IngredientList[i].DisplayType)
-                    @Html.EnumDropDownListFor(item => Model.IngredientList[i].DisplayType)
-                    <div>@Html.ValidationMessageFor(item => Model.IngredientList[i].IngredientName)</div>
-                </li>
-                <li>
-                    @Html.LabelFor(item => Model.IngredientList[i].Quantity)
-                    @Html.TextBoxFor(item => Model.IngredientList[i].Quantity, new { @style = "margin-right:30px;" })
-
-                    @Html.LabelFor(item => Model.IngredientList[i].UnitOfMeasure)
-                    @Html.TextBoxFor(item => Model.IngredientList[i].UnitOfMeasure)
-
-                   <div>@Html.ValidationMessageFor(item => Model.IngredientList[i].Quantity)</div>
-               </li>
-                <li @((i < Model.IngredientList.Count - 1) ? "class=Seperator":"")>
-                    @Html.LabelFor(item => Model.IngredientList[i].Notes)
-                    @Html.TextBoxFor(item => Model.IngredientList[i].Notes, new { @style = "width: 455px; max-width: 100%;" })
-                </li>
-            }
-        </ul>
+        <div id="IngredientsForm">
+            @Html.Partial("PartialViews/CreateIngredientList", Model)
+        </div>
 
         <div class="FormSection">
             Directions
         </div>
-        <ul class="FormFields">
-            @for (int i = 0; i < Model.DirectionList.Count; i++)
-            {
-                <li>
-                    @Html.LabelFor(item => Model.DirectionList[i].DisplayType)
-                    @Html.EnumDropDownListFor(item => Model.DirectionList[i].DisplayType)
-                </li>
-                <li @((i < Model.DirectionList.Count - 1) ? "class=Seperator" : "")>
-                    @Html.LabelFor(item => Model.DirectionList[i].DirectionText)
-                    @Html.TextAreaFor(item => Model.DirectionList[i].DirectionText, new { @rows = 3, @cols = "", style = "width: 600px; max-width: 100%;" })
-                </li>
-            }
-        </ul>
+        <div id="DirectionsForm">
+            @Html.Partial("PartialViews/CreateDirectionList", Model)
+        </div>
+
+        <hr/>
+        <div style="text-align:center;">
+            <input id="btnSave" type="button" value="Save" style="width: 60px;" />
+            <input id="btnCancel" type="button" value="Cancel" style="margin-left:40px; width:60px;" />
+        </div>
 </div>
 
     <script language="javascript" type="text/javascript">
         $(document).ready()
         {
-            $("[id^=IngredientList][id$=DisplayType]").children("option:contains(Direction)").remove();
-            $("[id^=IngredientList][id$=Quantity][value=0]").val("");
+            $("[id^=IngredientList][id$=DisplayType]").children("option:contains(Direction)").remove(); //Remove Directions option from Ingredients
+            $("[id^=IngredientList][id$=Quantity][value=0]").val(""); //Set zero quantities to blank
 
             $("[id^=DirectionList][id$=DisplayType]").children("option:contains(Ingredient)").remove();
+
+            $("#btnSave").click(SaveRecipe);
+        }
+
+        function SaveRecipe()
+        {
+            $("form").submit();
         }
     </script>
 }

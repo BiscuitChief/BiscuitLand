@@ -144,7 +144,7 @@ namespace BiscuitChief.Models
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    decimal keyvalue = TruncateQuantity(Convert.ToDecimal(dr["QuantityDecimal"]));
+                    decimal keyvalue = (decimal)TruncateQuantity(Convert.ToDecimal(dr["QuantityDecimal"]));
                     string displayvalue = Convert.ToString(dr["QuantityDisplay"]);
                     conversionchart.Add(keyvalue, displayvalue);
                 }
@@ -160,8 +160,8 @@ namespace BiscuitChief.Models
                 {
                     ing.Quantity = TruncateQuantity(ing.Quantity) * rcp.Quantity;
 
-                    decimal qtynumber = Math.Truncate(ing.Quantity);
-                    decimal qtydecimal = TruncateQuantity(ing.Quantity - qtynumber);
+                    decimal qtynumber = Math.Truncate((decimal)(ing.Quantity ?? 0));
+                    decimal qtydecimal = (decimal)(TruncateQuantity(ing.Quantity - qtynumber));
                     if (qtydecimal == TruncateQuantity(Convert.ToDecimal(0.9999999)))
                     {
                         qtynumber += 1;
@@ -198,9 +198,9 @@ namespace BiscuitChief.Models
         /// </summary>
         /// <param name="qty"></param>
         /// <returns></returns>
-        private static decimal TruncateQuantity(decimal qty)
+        private static Nullable<decimal> TruncateQuantity(Nullable<decimal> qty)
         {
-            qty = Math.Truncate(qty * 10000) / 10000;
+            qty = Math.Truncate((decimal)(qty ?? 0) * 10000) / 10000;
             return qty;
         }
 
