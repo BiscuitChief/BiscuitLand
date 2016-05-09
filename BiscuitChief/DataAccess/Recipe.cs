@@ -182,6 +182,40 @@ namespace BiscuitChief.Models
             }
         }
 
+        public void SaveRecipe()
+        {
+            using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand("Recipe_SaveRecipe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@pTitle", this.Title);
+                cmd.Parameters.AddWithValue("@pDescription", this.Description);
+                cmd.Parameters.AddWithValue("@pRecipeID", this.RecipeID);
+                cmd.Parameters["@pRecipeID"].Direction = ParameterDirection.Input;
+                cmd.Parameters.Add("@pRecipeIDOut", MySqlDbType.VarString);
+                cmd.Parameters["@pRecipeIDOut"].Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+
+                this.RecipeID = cmd.Parameters["@pRecipeIDOut"].Value.ToString();
+
+                foreach (RecipeIngredient ing in this.IngredientList)
+                {
+                    ing.RecipeID = this.RecipeID;
+                    ing.SaveIngredient(conn);
+                }
+
+                foreach (RecipeDirection dir in this.DirectionList)
+                {
+                    dir.RecipeID = this.RecipeID;
+                    dir.SaveDirection(conn);
+                }
+
+                conn.Close();
+            }
+        }
+
         #endregion
 
         #region Private Methods

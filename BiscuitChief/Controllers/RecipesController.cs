@@ -115,6 +115,8 @@ namespace BiscuitChief.Controllers
             foreach (Models.RecipeDirection dir in rcp.DirectionList)
             { dir.SortOrder = index++; }
 
+            rcp.SaveRecipe();
+
             return View(rcp);
         }
     }
