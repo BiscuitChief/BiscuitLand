@@ -43,7 +43,7 @@ namespace BiscuitChief.Models
             HDR 
         }
 
-        public class Category
+        public partial class Category
         {
             public Category() { }
             

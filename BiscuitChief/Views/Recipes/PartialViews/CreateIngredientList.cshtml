@@ -1,29 +1,37 @@
 ﻿@model BiscuitChief.Models.Recipe
 
-<ul class="FormFields">
+<a id="Ingredient_AddNew" style="cursor:pointer;" onclick="Ingredient_AddNew();">&lt; Add New &gt;</a>
+
+<ul class="FormFields" style="clear:both;">
     @for (int i = 0; i < Model.IngredientList.Count; i++)
     {
-        <li>
+        <li style="clear:both;">
             @Html.HiddenFor(item => Model.IngredientList[i].IngredientID)
             @Html.LabelFor(item => Model.IngredientList[i].IngredientName)
             @Html.TextBoxFor(item => Model.IngredientList[i].IngredientName, new { @style = "margin-right:30px;" })
 
             @Html.LabelFor(item => Model.IngredientList[i].DisplayType)
             @Html.EnumDropDownListFor(item => Model.IngredientList[i].DisplayType)
+            @if (i > 0)
+            { <div style="float:right;"><a id="Ingredient_MoveUp" style="cursor:pointer;" onclick="Ingredient_MoveUp(@i);">Move Up &#9650;</a></div> }
+            
             <div>@Html.ValidationMessageFor(item => Model.IngredientList[i].IngredientName)</div>
         </li>
-        <li>
+        <li style="clear:both;">
             @Html.LabelFor(item => Model.IngredientList[i].Quantity)
             @Html.TextBoxFor(item => Model.IngredientList[i].Quantity, new { @style = "margin-right:30px;" })
 
             @Html.LabelFor(item => Model.IngredientList[i].UnitOfMeasure)
             @Html.TextBoxFor(item => Model.IngredientList[i].UnitOfMeasure)
-
+            @if (i < Model.IngredientList.Count - 1)
+            { <div style="float:right;"><a id="Ingredient_MoveDown" style="cursor:pointer;" onclick="Ingredient_MoveDown(@i);">Move Down &#9660;</a></div> }
+            
             <div>@Html.ValidationMessageFor(item => Model.IngredientList[i].Quantity)</div>
         </li>
-        <li @((i < Model.IngredientList.Count - 1) ? "class=Seperator" : "")>
+        <li @((i < Model.IngredientList.Count - 1) ? "class=Seperator" : "") style="clear:both;">
             @Html.LabelFor(item => Model.IngredientList[i].Notes)
             @Html.TextBoxFor(item => Model.IngredientList[i].Notes, new { @style = "width: 455px; max-width: 100%;" })
+            <div style="float:right;"><a id="Ingredient_Delete" style="cursor:pointer;" onclick="Ingredient_Delete(@i);">&lt; Delete &gt;</a></div>
         </li>
     }
 </ul>

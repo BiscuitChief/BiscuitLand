@@ -15,7 +15,12 @@ namespace BiscuitChief.Models
     {
         #region Constructors
 
-        public Recipe() { }
+        public Recipe()
+        {
+            this.IngredientList = new List<RecipeIngredient>();
+            this.DirectionList = new List<RecipeDirection>();
+            this.CategoryList = new List<Category>();
+        }
 
         public Recipe(string _recipeid, decimal _quantity = 1)
         {
@@ -187,7 +192,7 @@ namespace BiscuitChief.Models
             using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
             {
                 conn.Open();
-
+                //Save base recipe information
                 MySqlCommand cmd = new MySqlCommand("Recipe_SaveRecipe", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@pTitle", this.Title);
@@ -197,22 +202,79 @@ namespace BiscuitChief.Models
                 cmd.Parameters.Add("@pRecipeIDOut", MySqlDbType.VarString);
                 cmd.Parameters["@pRecipeIDOut"].Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
-
+                //Make sure we have the recipe id if it's a new recipe
                 this.RecipeID = cmd.Parameters["@pRecipeIDOut"].Value.ToString();
 
+                //Clear out any existing directions, ingredients, and categories.
+                //This is just easier/lazier than trying to only delete what has been removed
+                cmd = new MySqlCommand("Recipe_ClearData", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@pRecipeID", this.RecipeID);
+                cmd.ExecuteNonQuery();
+                //Save ingredients
                 foreach (RecipeIngredient ing in this.IngredientList)
                 {
                     ing.RecipeID = this.RecipeID;
                     ing.SaveIngredient(conn);
                 }
-
+                //Save directions
                 foreach (RecipeDirection dir in this.DirectionList)
                 {
                     dir.RecipeID = this.RecipeID;
                     dir.SaveDirection(conn);
                 }
+                //Save categories
+                foreach (Recipe.Category cat in this.CategoryList)
+                {
+                    //only save selected categories
+                    if (cat.IsSelected)
+                    { cat.SaveCategory(this.RecipeID, conn); }
+                }
 
                 conn.Close();
+            }
+        }
+
+        public partial class Category
+        {
+            public static List<Category> GetAllCategories()
+            {
+                List<Category> returnval = new List<Category>();
+
+                using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
+                {
+                    conn.Open();
+
+                    MySqlCommand cmd = new MySqlCommand("Lookup_Select_Categories", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        returnval.Add(new Models.Recipe.Category(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString(), false));
+                    }
+                    dr.Close();
+                }
+
+                return returnval;
+            }
+
+            public void SaveCategory(string _recipeid)
+            {
+                using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
+                {
+                    conn.Open();
+                    SaveCategory(_recipeid, conn);
+                    conn.Close();
+                }
+            }
+
+            public void SaveCategory(string _recipeid, MySqlConnection conn)
+            {
+                MySqlCommand cmd = new MySqlCommand("Recipe_SaveRecipeCategory", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                cmd.Parameters.AddWithValue("@pCategoryCode", this.CategoryCode);
+                cmd.ExecuteNonQuery();
             }
         }
 

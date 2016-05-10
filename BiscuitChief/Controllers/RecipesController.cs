@@ -18,24 +18,10 @@ namespace BiscuitChief.Controllers
         {
             Models.RecipeSearch searchdata = new Models.RecipeSearch();
             searchdata.SearchResults = new List<Models.Recipe>();
-            searchdata.SearchCategoryList = new List<Models.Recipe.Category>();
+            searchdata.SearchCategoryList = Models.Recipe.Category.GetAllCategories();
             searchdata.PageCount = 1;
             searchdata.PageNumber = 1;
             searchdata.PageSize = 1;
-
-            using (MySqlConnection conn = new MySqlConnection(WebConfigurationManager.ConnectionStrings["default"].ToString()))
-            {
-                conn.Open();
-
-                MySqlCommand cmd = new MySqlCommand("Lookup_Select_Categories", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    searchdata.SearchCategoryList.Add(new Models.Recipe.Category(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString(), false));
-                }
-                dr.Close();
-            }
 
             return View(searchdata);
         }
@@ -100,6 +86,11 @@ namespace BiscuitChief.Controllers
                 rcp = new Models.Recipe(recipeid);
             }
 
+            List<Models.Recipe.Category> allcat = Models.Recipe.Category.GetAllCategories();
+            foreach (Models.Recipe.Category cat in rcp.CategoryList)
+            { allcat.Find(act => act.CategoryCode == cat.CategoryCode).IsSelected = true; }
+            rcp.CategoryList = allcat;
+
             return View(rcp);
         }
 
@@ -118,6 +109,15 @@ namespace BiscuitChief.Controllers
             rcp.SaveRecipe();
 
             return View(rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "ADMIN")]
+        public ActionResult Ingredient_Add(Models.Recipe rcp)
+        {
+            rcp.IngredientList.Add(new Models.RecipeIngredient());
+            return PartialView("PartialViews/CreateIngredientList", rcp);
         }
     }
 }

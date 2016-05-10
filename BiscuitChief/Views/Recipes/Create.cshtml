@@ -25,6 +25,19 @@
                 @Html.TextAreaFor(model => model.Description, new { @rows = 3, @cols = "", style="width: 600px; max-width: 100%;" })
                 @Html.ValidationMessageFor(model => model.Description)
             </li>
+            <li>
+                <label>Cateogories:</label>
+                @for (int i = 0; i < Model.CategoryList.Count; i++)
+                {
+                    <span style="padding-right:15px; white-space:nowrap;">
+                        @Html.HiddenFor(item => Model.CategoryList[i].CategoryCode)
+                        @Html.HiddenFor(item => Model.CategoryList[i].CategoryName)
+                        @Model.CategoryList[i].CategoryName
+                        @Html.CheckBoxFor(item => Model.CategoryList[i].IsSelected)
+                    </span>
+                }
+
+            </li>
         </ul>
 
         <div class="FormSection">
@@ -48,20 +61,44 @@
         </div>
 </div>
 
-    <script language="javascript" type="text/javascript">
-        $(document).ready()
-        {
-            $("[id^=IngredientList][id$=DisplayType]").children("option:contains(Direction)").remove(); //Remove Directions option from Ingredients
-            $("[id^=IngredientList][id$=Quantity][value=0]").val(""); //Set zero quantities to blank
+<script language="javascript" type="text/javascript">
+    $(document).ready()
+    {
+        $("[id^=IngredientList][id$=DisplayType]").children("option:contains(Direction)").remove(); //Remove Directions option from Ingredients
+        $("[id^=IngredientList][id$=Quantity][value=0]").val(""); //Set zero quantities to blank
 
-            $("[id^=DirectionList][id$=DisplayType]").children("option:contains(Ingredient)").remove();
+        $("[id^=DirectionList][id$=DisplayType]").children("option:contains(Ingredient)").remove();
 
-            $("#btnSave").click(SaveRecipe);
-        }
+        $("#btnSave").click(SaveRecipe);
+    }
 
-        function SaveRecipe()
-        {
-            $("form").submit();
-        }
-    </script>
+    function SaveRecipe()
+    {
+        $("form").submit();
+    }
+
+    function Ingredient_AddNew() {
+        $.ajax({
+            method: "POST",
+            dataType: "HTML",
+            url: "/Recipes/Ingredient_Add",
+            data: $("form").serialize(),
+            success: function (data) {
+                $("#IngredientsForm").html(data);
+            }
+        });
+    }
+
+    function Ingredient_MoveUp(index) {
+        alert(index);
+    }
+
+    function Ingredient_MoveDown(index) {
+        alert(index);
+    }
+
+    function Ingredient_Delete(index) {
+        alert(index);
+    }
+</script>
 }
