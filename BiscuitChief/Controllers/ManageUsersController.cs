@@ -9,20 +9,23 @@ namespace BiscuitChief.Controllers
     public class ManageUsersController : Controller
     {
         // GET: ManageUsers
-        [Authorize(Roles="ADMIN")]
+        [Authorize(Roles="FULLACCESS")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost()]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "FULLACCESS")]
         [ValidateAntiForgeryToken()]
         public ActionResult Index(BiscuitChief.Models.Login login, string ReturnUrl = "")
         {
             string resultmsg = string.Empty;
 
-            resultmsg = login.AddNewUser();
+            if (User.IsInRole("ADMIN"))
+            { resultmsg = login.AddNewUser(); }
+            else
+            { resultmsg = "Success"; }
 
             ViewBag.ResultMessage = resultmsg;
             return View(login);

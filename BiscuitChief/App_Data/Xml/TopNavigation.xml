@@ -16,7 +16,7 @@
   <MenuItem>
     <Text>Manage Users</Text>
     <Url>/ManageUsers</Url>
-    <SecurityRole>ADMIN</SecurityRole>
+    <SecurityRole>FULLACCESS</SecurityRole>
   </MenuItem>
   <MenuItem Authenticated="0">
     <Text>Login</Text>

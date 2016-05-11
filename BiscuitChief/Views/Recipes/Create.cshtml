@@ -40,17 +40,17 @@
             </li>
         </ul>
 
-        <div class="FormSection">
+        <div class="FormSection" style="clear:both;">
             Ingredients
         </div>
-        <div id="IngredientsForm">
+        <div id="IngredientsForm" style="clear:both;">
             @Html.Partial("PartialViews/CreateIngredientList", Model)
         </div>
 
-        <div class="FormSection">
+        <div class="FormSection" style="clear:both;">
             Directions
         </div>
-        <div id="DirectionsForm">
+        <div id="DirectionsForm" style="clear:both;">
             @Html.Partial("PartialViews/CreateDirectionList", Model)
         </div>
 
@@ -64,10 +64,8 @@
 <script language="javascript" type="text/javascript">
     $(document).ready()
     {
-        $("[id^=IngredientList][id$=DisplayType]").children("option:contains(Direction)").remove(); //Remove Directions option from Ingredients
-        $("[id^=IngredientList][id$=Quantity][value=0]").val(""); //Set zero quantities to blank
-
-        $("[id^=DirectionList][id$=DisplayType]").children("option:contains(Ingredient)").remove();
+        SetupIngredients();
+        SetupDirections();
 
         $("#btnSave").click(SaveRecipe);
     }
@@ -126,16 +124,106 @@
     function Ingredient_Render(data) {
         //Render partial view
         $("#IngredientsForm").html(data);
-        //Hide validation, we don't need to see it in this case
-        $("[class='input-validation-error']").removeClass("input-validation-error");
-        $("[class^='field-validation-error']").html("");
-        $("[class^='field-validation-error']").addClass("field-validation-valid");
-        $("[class^='field-validation-error']").removeClass("field-validation-error");
-        //Update unobtrusive validation to include dynamically added form elements
-        var form = $("form");
-        form.removeData('validator');
-        form.removeData('unobtrusiveValidation');
-        $.validator.unobtrusive.parse(form);
+        SetupIngredients();
+        //ResetValidation();
     }
+
+
+    function Direction_AddNew() {
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Direction_Add",
+            data: $("form").serialize(),
+            success: Direction_Render
+        });
+    }
+
+    function Direction_MoveUp(index) {
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Direction_MoveDown",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Direction_Render
+        });
+    }
+
+    function Direction_MoveDown(index) {
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Direction_MoveUp",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Direction_Render
+        });
+    }
+
+    function Direction_Delete(index) {
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Direction_Delete",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Direction_Render
+        });
+    }
+
+    function Direction_Render(data) {
+        //Render partial view
+        $("#DirectionsForm").html(data);
+        SetupDirections();
+        //ResetValidation();
+    }
+
+    function SetupIngredients()
+    {
+        $("[id^=IngredientList][id$=DisplayType]").children("option:contains(Direction)").remove(); //Remove Directions option from Ingredients
+        $("[id^=IngredientList][id$=Quantity][value=0]").val(""); //Set zero quantities to blank
+
+        $("[id^=IngredientList][id$=DisplayType]").each(function (index, ddl) {
+            var ingindex = ddl.getAttribute("ingindex");
+            if (ddl.options[ddl.selectedIndex].text == "Header") {
+                $("[id=Ingredients_QtyRow][ingindex=" + ingindex + "]").hide();
+                $("[id=Ingredients_NotesRow][ingindex=" + ingindex + "]").hide();
+            } else {
+                $("[id=Ingredients_QtyRow][ingindex=" + ingindex + "]").show();
+                $("[id=Ingredients_NotesRow][ingindex=" + ingindex + "]").show();
+            }
+        })
+    }
+
+    function SetupDirections() {
+        $("[id^=DirectionList][id$=DisplayType]").children("option:contains(Ingredient)").remove();
+    }
+
+    function IngDisplayTypeChanged(ddl) {
+        var ingindex = ddl.getAttribute("ingindex");
+        if (ddl.options[ddl.selectedIndex].text == "Header") {
+            $("[id=Ingredients_QtyRow][ingindex=" + ingindex + "]").hide();
+            $("[id=Ingredients_NotesRow][ingindex=" + ingindex + "]").hide();
+        } else {
+            $("[id=Ingredients_QtyRow][ingindex=" + ingindex + "]").show();
+            $("[id=Ingredients_NotesRow][ingindex=" + ingindex + "]").show();
+        }
+    }
+
+    //No longer needed as ModelState.Clear() seems to do the trick, leaving this here anway incase I need it later
+    //function ResetValidation() {
+    //    //Hide validation, we don't need to see it in this case
+    //    $("[class='input-validation-error']").removeClass("input-validation-error");
+    //    $("[class^='field-validation-error']").html("");
+    //    $("[class^='field-validation-error']").addClass("field-validation-valid");
+    //    $("[class^='field-validation-error']").removeClass("field-validation-error");
+    //    //Update unobtrusive validation to include dynamically added form elements
+    //    var form = $("form");
+    //    form.removeData('validator');
+    //    form.removeData('unobtrusiveValidation');
+    //    $.validator.unobtrusive.parse(form);
+    //}
 </script>
 }

@@ -13,6 +13,8 @@ namespace BiscuitChief.Controllers
 {
     public class RecipesController : Controller
     {
+        #region Search Recipe
+
         // GET: Recipes
         public ActionResult Search()
         {
@@ -54,6 +56,10 @@ namespace BiscuitChief.Controllers
             return View(searchdata);
         }
 
+        #endregion
+
+        #region View Recipe
+
         public ActionResult Recipe(string recipeid, decimal quantity = 1)
         {
             List<SelectListItem> qtyvalues = new List<SelectListItem>();
@@ -72,7 +78,11 @@ namespace BiscuitChief.Controllers
             return View(rcp);
         }
 
-        [Authorize(Roles = "ADMIN")]
+        #endregion
+
+        #region Create Recipe
+
+        [Authorize(Roles = "FULLACCESS")]
         public ActionResult Create(string recipeid = "")
         {
             Models.Recipe rcp = new Models.Recipe();
@@ -96,24 +106,27 @@ namespace BiscuitChief.Controllers
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "FULLACCESS")]
         public ActionResult Create(Models.Recipe rcp)
         {
-            int index = 0;
-            foreach (Models.RecipeIngredient ing in rcp.IngredientList)
-            { ing.SortOrder = index++; }
-            index = 0;
-            foreach (Models.RecipeDirection dir in rcp.DirectionList)
-            { dir.SortOrder = index++; }
+            if (User.IsInRole("ADMIN"))
+            {
+                int index = 0;
+                foreach (Models.RecipeIngredient ing in rcp.IngredientList)
+                { ing.SortOrder = index++; }
+                index = 0;
+                foreach (Models.RecipeDirection dir in rcp.DirectionList)
+                { dir.SortOrder = index++; }
 
-            rcp.SaveRecipe();
-
+                rcp.SaveRecipe();
+            }
+            ViewBag.Title = "Edit Recipe";
             return View(rcp);
         }
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "FULLACCESS")]
         public ActionResult Ingredient_Add(Models.Recipe rcp)
         {
             rcp.IngredientList.Add(new Models.RecipeIngredient());
@@ -123,7 +136,7 @@ namespace BiscuitChief.Controllers
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "FULLACCESS")]
         public ActionResult Ingredient_MoveUp(Models.Recipe rcp, int _index)
         {
             if (rcp.IngredientList.Count - 1 > _index)
@@ -138,7 +151,7 @@ namespace BiscuitChief.Controllers
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "FULLACCESS")]
         public ActionResult Ingredient_MoveDown(Models.Recipe rcp, int _index)
         {
             if (rcp.IngredientList.Count - 1 > 0)
@@ -154,7 +167,7 @@ namespace BiscuitChief.Controllers
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "FULLACCESS")]
         public ActionResult Ingredient_Delete(Models.Recipe rcp, int _index)
         {
             if (rcp.IngredientList.Count > _index)
@@ -162,5 +175,59 @@ namespace BiscuitChief.Controllers
             ModelState.Clear();
             return PartialView("PartialViews/CreateIngredientList", rcp);
         }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Direction_Add(Models.Recipe rcp)
+        {
+            rcp.DirectionList.Add(new Models.RecipeDirection());
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateDirectionList", rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Direction_MoveUp(Models.Recipe rcp, int _index)
+        {
+            if (rcp.DirectionList.Count - 1 > _index)
+            {
+                Models.RecipeDirection temp = rcp.DirectionList[_index + 1];
+                rcp.DirectionList[_index + 1] = rcp.DirectionList[_index];
+                rcp.DirectionList[_index] = temp;
+            }
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateDirectionList", rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Direction_MoveDown(Models.Recipe rcp, int _index)
+        {
+            if (rcp.DirectionList.Count - 1 > 0)
+            {
+                Models.RecipeDirection temp = rcp.DirectionList[_index - 1];
+                rcp.DirectionList[_index - 1] = rcp.DirectionList[_index];
+                rcp.DirectionList[_index] = temp;
+            }
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateDirectionList", rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Direction_Delete(Models.Recipe rcp, int _index)
+        {
+            if (rcp.DirectionList.Count > _index)
+            { rcp.DirectionList.RemoveAt(_index); }
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateDirectionList", rcp);
+        }
+
+        #endregion
     }
 }

@@ -17,7 +17,7 @@ namespace BiscuitChief.Models
         public int SortOrder { get; set; }
 
         [Display(Name = "Direction Text:")]
-        [Required(ErrorMessage = "Please enter a Direction Text")]
+        [Required(ErrorMessage = "Please enter the Direction Text")]
         public string DirectionText { get; set; }
 
         [Display(Name = "Display Type:")]
