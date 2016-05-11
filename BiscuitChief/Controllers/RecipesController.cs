@@ -119,5 +119,44 @@ namespace BiscuitChief.Controllers
             rcp.IngredientList.Add(new Models.RecipeIngredient());
             return PartialView("PartialViews/CreateIngredientList", rcp);
         }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "ADMIN")]
+        public ActionResult Ingredient_MoveUp(Models.Recipe rcp, int _index)
+        {
+            if (rcp.IngredientList.Count - 1 > 0)
+            {
+                Models.RecipeIngredient temp = rcp.IngredientList[_index - 1];
+                rcp.IngredientList[_index - 1] = rcp.IngredientList[_index];
+                rcp.IngredientList[_index] = temp;
+            }
+            return PartialView("PartialViews/CreateIngredientList", rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "ADMIN")]
+        public ActionResult Ingredient_MoveDown(Models.Recipe rcp, int _index)
+        {
+            if (rcp.IngredientList.Count - 1 > _index)
+            {
+                Models.RecipeIngredient temp = rcp.IngredientList[_index + 1];
+                rcp.IngredientList[_index + 1] = rcp.IngredientList[_index];
+                rcp.IngredientList[_index] = temp;
+            }
+            return PartialView("PartialViews/CreateIngredientList", rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [Authorize(Roles = "ADMIN")]
+        public ActionResult Ingredient_Delete(Models.Recipe rcp, int _index)
+        {
+            if (rcp.IngredientList.Count > _index)
+            { rcp.IngredientList.RemoveAt(_index); }
+            return PartialView("PartialViews/CreateIngredientList", rcp);
+        }
     }
 }

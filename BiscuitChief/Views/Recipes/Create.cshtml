@@ -74,31 +74,68 @@
 
     function SaveRecipe()
     {
-        $("form").submit();
+        if ($("form").valid()) {
+            $("form").submit();
+        }
     }
 
     function Ingredient_AddNew() {
         $.ajax({
             method: "POST",
+            cache: false,
             dataType: "HTML",
             url: "/Recipes/Ingredient_Add",
             data: $("form").serialize(),
-            success: function (data) {
-                $("#IngredientsForm").html(data);
-            }
+            success: Ingredient_Render
         });
     }
 
     function Ingredient_MoveUp(index) {
-        alert(index);
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Ingredient_MoveDown",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Ingredient_Render
+        });
     }
 
     function Ingredient_MoveDown(index) {
-        alert(index);
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Ingredient_MoveUp",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Ingredient_Render
+        });
     }
 
     function Ingredient_Delete(index) {
-        alert(index);
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Ingredient_Delete",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Ingredient_Render
+        });
+    }
+
+    function Ingredient_Render(data) {
+        //Render partial view
+        $("#IngredientsForm").html(data);
+        //Hide validation, we don't need to see it in this case
+        $("[class='input-validation-error']").removeClass("input-validation-error");
+        $("[class^='field-validation-error']").html("");
+        $("[class^='field-validation-error']").addClass("field-validation-valid");
+        $("[class^='field-validation-error']").removeClass("field-validation-error");
+        //Update unobtrusive validation to include dynamically added form elements
+        var form = $("form");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
     }
 </script>
 }
