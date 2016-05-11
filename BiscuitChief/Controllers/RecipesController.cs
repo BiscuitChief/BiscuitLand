@@ -117,6 +117,7 @@ namespace BiscuitChief.Controllers
         public ActionResult Ingredient_Add(Models.Recipe rcp)
         {
             rcp.IngredientList.Add(new Models.RecipeIngredient());
+            ModelState.Clear();
             return PartialView("PartialViews/CreateIngredientList", rcp);
         }
 
@@ -125,12 +126,13 @@ namespace BiscuitChief.Controllers
         [Authorize(Roles = "ADMIN")]
         public ActionResult Ingredient_MoveUp(Models.Recipe rcp, int _index)
         {
-            if (rcp.IngredientList.Count - 1 > 0)
+            if (rcp.IngredientList.Count - 1 > _index)
             {
-                Models.RecipeIngredient temp = rcp.IngredientList[_index - 1];
-                rcp.IngredientList[_index - 1] = rcp.IngredientList[_index];
+                Models.RecipeIngredient temp = rcp.IngredientList[_index + 1];
+                rcp.IngredientList[_index + 1] = rcp.IngredientList[_index];
                 rcp.IngredientList[_index] = temp;
             }
+            ModelState.Clear();
             return PartialView("PartialViews/CreateIngredientList", rcp);
         }
 
@@ -139,12 +141,13 @@ namespace BiscuitChief.Controllers
         [Authorize(Roles = "ADMIN")]
         public ActionResult Ingredient_MoveDown(Models.Recipe rcp, int _index)
         {
-            if (rcp.IngredientList.Count - 1 > _index)
+            if (rcp.IngredientList.Count - 1 > 0)
             {
-                Models.RecipeIngredient temp = rcp.IngredientList[_index + 1];
-                rcp.IngredientList[_index + 1] = rcp.IngredientList[_index];
+                Models.RecipeIngredient temp = rcp.IngredientList[_index - 1];
+                rcp.IngredientList[_index - 1] = rcp.IngredientList[_index];
                 rcp.IngredientList[_index] = temp;
             }
+            ModelState.Clear();
             return PartialView("PartialViews/CreateIngredientList", rcp);
         }
 
@@ -156,6 +159,7 @@ namespace BiscuitChief.Controllers
         {
             if (rcp.IngredientList.Count > _index)
             { rcp.IngredientList.RemoveAt(_index); }
+            ModelState.Clear();
             return PartialView("PartialViews/CreateIngredientList", rcp);
         }
     }
