@@ -4,6 +4,8 @@
 {
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(item => Model.RecipeID)
+
     <div class="RecipeHeading">
         <div class="Title">
             @ViewBag.Title
@@ -74,12 +76,20 @@
         SetupDirections();
 
         $("#btnSave").click(SaveRecipe);
+        $("#btnCancel").click(CancelRecipe);
     }
 
-    function SaveRecipe()
-    {
+    function SaveRecipe() {
         if ($("form").valid()) {
             $("form").submit();
+        }
+    }
+
+    function CancelRecipe() {
+        if ($("#RecipeID").val() != "") {
+            window.location = '@Url.Action("Recipe", "Recipes")?recipeid=' + $("#RecipeID").val();
+        } else {
+            window.location = '@Url.Action("Search", "Recipes")';
         }
     }
 
