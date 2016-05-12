@@ -120,8 +120,16 @@ namespace BiscuitChief.Controllers
 
                 rcp.SaveRecipe();
             }
-            ViewBag.Title = "Edit Recipe";
-            return View(rcp);
+
+            if (!String.IsNullOrEmpty(rcp.RecipeID))
+            {
+                return Redirect(Url.Action("Recipe", "Recipes", new { recipeid = rcp.RecipeID }));
+            }
+            else
+            {
+                ViewBag.Title = "New Recipe";
+                return View(rcp);
+            }
         }
 
         [HttpPost()]
@@ -226,6 +234,20 @@ namespace BiscuitChief.Controllers
             { rcp.DirectionList.RemoveAt(_index); }
             ModelState.Clear();
             return PartialView("PartialViews/CreateDirectionList", rcp);
+        }
+
+        #endregion
+
+        #region Delete Recipe
+
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Delete(string recipeid = "")
+        {
+            if (User.IsInRole("ADMIN"))
+            {
+                Models.Recipe.DeleteRecipe(recipeid);
+            }
+            return Redirect(Url.Action("Search", "Recipes"));
         }
 
         #endregion

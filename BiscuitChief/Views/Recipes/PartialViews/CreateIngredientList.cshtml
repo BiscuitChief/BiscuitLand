@@ -16,8 +16,8 @@
             <div>@Html.ValidationMessageFor(item => Model.IngredientList[i].IngredientName)</div>
         </li>
         <li id="Ingredients_QtyRow" ingindex="@i">
-            @Html.LabelFor(item => Model.IngredientList[i].Quantity)
-            @Html.TextBoxFor(item => Model.IngredientList[i].Quantity, new { @style = "margin-right:30px;" })
+            @Html.LabelFor(item => Model.IngredientList[i].DisplayQuantity)
+            @Html.TextBoxFor(item => Model.IngredientList[i].DisplayQuantity, new { @style = "margin-right:30px;" })
 
             @Html.LabelFor(item => Model.IngredientList[i].UnitOfMeasure)
             @Html.TextBoxFor(item => Model.IngredientList[i].UnitOfMeasure)

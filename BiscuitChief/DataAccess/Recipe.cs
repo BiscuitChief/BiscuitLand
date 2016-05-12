@@ -182,6 +182,7 @@ namespace BiscuitChief.Models
                         else
                         { ing.DisplayQuantity += " " + qtydecimal.ToString(); }
                     }
+                    ing.DisplayQuantity = ing.DisplayQuantity.Trim();
 
                 }
             }
@@ -230,6 +231,21 @@ namespace BiscuitChief.Models
                     if (cat.IsSelected)
                     { cat.SaveCategory(this.RecipeID, conn); }
                 }
+
+                conn.Close();
+            }
+        }
+
+        public static void DeleteRecipe(string _recipeid)
+        {
+            using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand("Recipe_DeleteRecipe", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                cmd.ExecuteNonQuery();
 
                 conn.Close();
             }

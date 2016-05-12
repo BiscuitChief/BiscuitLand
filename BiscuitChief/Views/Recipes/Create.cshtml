@@ -7,6 +7,12 @@
     <div class="RecipeHeading">
         <div class="Title">
             @ViewBag.Title
+            @if (!String.IsNullOrEmpty(Model.RecipeID))
+            {
+                <div style="float:right; font-weight:normal; font-size:12px;">
+                    <a href='@Url.Action("Delete", "Recipes", new { recipeid = Model.RecipeID })'>&lt; Delete Recipe &gt;</a>
+                </div>
+            }
         </div>
     </div>
     

@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 
 namespace BiscuitChief.Models
@@ -44,6 +45,36 @@ namespace BiscuitChief.Models
         /// <param name="conn">Open database connection</param>
         public void SaveIngredient(MySqlConnection conn)
         {
+            if ((this.Quantity ?? 0) <= 0 && !String.IsNullOrEmpty(this.DisplayQuantity))
+            {
+                decimal qty = 0;
+                if (decimal.TryParse(this.DisplayQuantity, out qty))
+                { this.Quantity = qty; }
+                else
+                {
+                    decimal basenum = 0;
+                    decimal numerator = 0;
+                    decimal denominator = 0;
+                    
+                    Match fraction = Regex.Match(this.DisplayQuantity, @"\A(?<Number>\d*)?(\s*)?((?<Numerator>\d+)/(?<Denominator>\d+))?\Z");
+
+                    try
+                    { basenum = Convert.ToDecimal(fraction.Groups["Number"].Value); }
+                    catch { }
+                    try
+                    { numerator = Convert.ToDecimal(fraction.Groups["Numerator"].Value); }
+                    catch { }
+                    try
+                    { denominator = Convert.ToDecimal(fraction.Groups["Denominator"].Value); }
+                    catch { }
+
+                    if (basenum > 0)
+                    { this.Quantity = basenum; }
+                    if (numerator > 0 && denominator > 0)
+                    { this.Quantity += (numerator / denominator); }
+                }
+            }
+
             MySqlCommand cmd = new MySqlCommand("Recipe_SaveIngredient", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@pIngredientID", this.IngredientID);

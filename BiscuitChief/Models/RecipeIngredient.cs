@@ -22,6 +22,7 @@ namespace BiscuitChief.Models
         [Range(0, Double.MaxValue, ErrorMessage="Please enter a valid Quantity")]
         public Nullable<decimal> Quantity { get; set; }
 
+        [Display(Name = "Quantity:")]
         public string DisplayQuantity { get; set; }
 
         [Display(Name = "Unit Of Measure:")]
