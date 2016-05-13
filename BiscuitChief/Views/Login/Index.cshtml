@@ -9,13 +9,24 @@
     @Html.AntiForgeryToken()
     
     <div>
+        You can use the form below to log in.  I have setup some same logins so you can see the entire site
+        <br/><br/>
+        Username: <b>admin</b>, Password: <b>test</b><br/>
+        The demo admin login will allow you to see the entire site.  It will not allow you to save data.
+        Because I actually plan on using this site I can't have random people manipulating the data.
+        <br/><br/>
+        Username: <b>test</b>, Password: <b>test</b><br/>
+        The demo test login just exists to as an example of a login without admin security roles.
+    </div>
+    <hr/>
+    <div>
         Please enter your login information below.
         <br /><br />
         @Html.LabelFor(model => model.UserName) @Html.TextBoxFor(model => model.UserName) @Html.ValidationMessageFor(model => model.UserName)
         <br /><br />
         @Html.LabelFor(model => model.Password) @Html.PasswordFor(model => model.Password) @Html.ValidationMessageFor(model => model.Password)
         <br /><br />
-        <input type="submit" id="btnSubmit" value="Submit" />
+        <input type="submit" id="btnSubmit" class="BtnSubmit" value="Submit" />
     </div>
 }
 
