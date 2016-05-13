@@ -13,7 +13,14 @@
 <body>
     <div class="SiteContainer">
         <div class="PageHeader">
-            <div class="HeaderText"><a href="/">BiscuitChief.net</a></div>
+            <div class="HeaderText">
+                @if (!String.IsNullOrEmpty(Convert.ToString(ViewBag.PageHeading)))
+                { <a href="/">@ViewBag.PageHeading</a> }
+                else if (!String.IsNullOrEmpty(Convert.ToString(ViewBag.Title)))
+                { <a href="/">@ViewBag.Title</a> }
+                else
+                { <a href="/">BiscuitChief.net</a> }
+            </div>
             @BiscuitChief.HtmlExtensions.GetTopNavigation()
         </div>
         <div class="PageContent">

@@ -36,7 +36,8 @@ namespace BiscuitChief
 
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapRoute("DefaultRoute", "", new { controller = "Home", action = "Index" }); 
+            routes.MapRoute("DefaultRoute", "", new { controller = "Home", action = "Index" });
+            routes.MapRoute("AboutRoute", "About", new { controller = "Home", action = "About" });
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

@@ -18,6 +18,10 @@
     <Url>/ManageUsers</Url>
     <SecurityRole>FULLACCESS</SecurityRole>
   </MenuItem>
+  <MenuItem>
+    <Text>About</Text>
+    <Url>/About</Url>
+  </MenuItem>
   <MenuItem Authenticated="0">
     <Text>Login</Text>
     <Url>/Login</Url>
