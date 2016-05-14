@@ -4,6 +4,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Configuration;
 using System.Collections;
+using System.Net.Mail;
+using System.Web.UI;
+using System.Web;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace BiscuitChief
 {
@@ -137,6 +143,104 @@ namespace BiscuitChief
         }
 
         #endregion
+
+        #region Email
+
+        public static string SendEmail(string _subject, string _body)
+        {
+            return SendEmail(_subject, _body, String.Empty, String.Empty, String.Empty);
+        }
+
+        public static string SendEmail(string _subject, string _body, string _mailto, string _mailfrom, string _fromdisplayname)
+        {
+            string error = String.Empty;
+            string smtpuser = String.Empty;
+            string smtppass = String.Empty;
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
+                {
+                    conn.Open();
+
+                    smtpuser = GetSiteSetting("ContactUsername", conn);
+                    smtppass = GetSiteSetting("ContactPassword", conn);
+
+                    if (String.IsNullOrEmpty(_mailfrom))
+                    { _mailfrom = GetSiteSetting("ContactFrom", conn); }
+
+                    if (String.IsNullOrEmpty(_mailto))
+                    { _mailto = GetSiteSetting("ContactTo", conn); }
+
+                    conn.Close();
+                }
+                MailMessage mailmsg = new MailMessage();
+                mailmsg.To.Add(_mailto);
+
+                mailmsg.Subject = _subject;
+                mailmsg.Body = _body;
+                mailmsg.From = new MailAddress(_mailfrom, _fromdisplayname);
+
+                if (HttpContext.Current.Request.ServerVariables["SERVER_NAME"] == "localhost")
+                {
+                    return String.Empty;
+                    //mailmsg.To.Clear();
+                    //mailmsg.To.Add("alternate email to");
+                }
+
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new System.Net.NetworkCredential(smtpuser, smtppass);
+                client.Send(mailmsg);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
+            return error;
+        }
+
+        /// <summary>
+        /// Retrieves an email template as a text string
+        /// </summary>
+        /// <param name="_filename">The filename of the email template</param>
+        /// <returns>The email template string</returns>
+        public static String GetEmailTemplate(string _filename)
+        {
+            String strReturn = String.Empty;
+
+            StreamReader _textStreamReader = new StreamReader(HttpContext.Current.Server.MapPath(Path.Combine("/App_Data/EmailTemplates", _filename)));
+
+            strReturn = _textStreamReader.ReadToEnd();
+            _textStreamReader.Close();
+
+            return strReturn;
+        }
+
+        #endregion
+
+        public static string GetSiteSetting(string _settingcode)
+        {
+            string returnval = String.Empty;
+            using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
+            {
+                conn.Open();
+                returnval = GetSiteSetting(_settingcode, conn);
+                conn.Close();
+            }
+            return returnval;
+        }
+
+        public static string GetSiteSetting(string _settingcode, MySqlConnection conn)
+        {
+            string returnval = String.Empty;
+
+            MySqlCommand cmd = new MySqlCommand("Lookup_Select_SiteSetting", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@pSettingCode", _settingcode);
+            returnval = Convert.ToString(cmd.ExecuteScalar());
+
+            return returnval;
+        }
 
         public class PagerHelper
         {

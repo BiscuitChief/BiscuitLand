@@ -26,6 +26,7 @@ namespace BiscuitChief.Controllers
             backupscript.AppendLine("TRUNCATE TABLE Recipe_Recipes;");
             backupscript.AppendLine("TRUNCATE TABLE Recipe_Ingredients;");
             backupscript.AppendLine("TRUNCATE TABLE Recipe_Directions;");
+            backupscript.AppendLine("TRUNCATE TABLE Recipe_Categories;");
             backupscript.AppendLine();
 
             List<Models.Recipe> recipes = Models.Recipe.SearchRecipes(String.Empty, new string[] { }, new string[] { });

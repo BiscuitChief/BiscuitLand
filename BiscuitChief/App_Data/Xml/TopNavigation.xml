@@ -14,13 +14,21 @@
     </MenuItem>
   </MenuItem>
   <MenuItem>
-    <Text>Manage Users</Text>
-    <Url>/ManageUsers</Url>
+    <Text>Administration</Text>
     <SecurityRole>FULLACCESS</SecurityRole>
+    <MenuItem>
+      <Text>Manage Users</Text>
+      <Url>/ManageUsers</Url>
+      <SecurityRole>FULLACCESS</SecurityRole>
+    </MenuItem>
   </MenuItem>
   <MenuItem>
     <Text>About</Text>
     <Url>/About</Url>
+  </MenuItem>
+  <MenuItem>
+    <Text>Contact</Text>
+    <Url>/Home/Contact</Url>
   </MenuItem>
   <MenuItem Authenticated="0">
     <Text>Login</Text>

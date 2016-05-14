@@ -387,14 +387,14 @@ textarea {
     width:100%;
 }
 
-.RecipeForm .FormFields
+.InputForm .FormFields
 {
     list-style:none;
     margin:0px;
     padding:0px;
 }
 
-.RecipeForm .FormFields li
+.InputForm .FormFields li
 {
     width:100%;
     padding-bottom:3px;
@@ -402,13 +402,13 @@ textarea {
     padding-right:5px;
 }
 
-.RecipeForm .FormFields label
+.InputForm .FormFields label
 {
     font-weight:bold;
     width:120px;
 }
 
-.RecipeForm .FormFields .Seperator
+.InputForm .FormFields .Seperator
 {
     border-bottom:1px solid #888888;
     margin-bottom:10px;

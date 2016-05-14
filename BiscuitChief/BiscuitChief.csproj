@@ -135,6 +135,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\RecipeDirection.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\RecipeIngredient.cs" />
@@ -149,6 +150,7 @@
     <Content Include="App_Data\BiscuitChief_log.ldf">
       <DependentUpon>BiscuitChief.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\EmailTemplates\ContactUs.txt" />
     <Content Include="App_Data\Xml\TopNavigation.xml">
       <SubType>Designer</SubType>
     </Content>
