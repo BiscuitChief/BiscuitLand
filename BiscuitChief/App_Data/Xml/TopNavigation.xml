@@ -14,6 +14,14 @@
     </MenuItem>
   </MenuItem>
   <MenuItem>
+    <Text>About</Text>
+    <Url>/About</Url>
+  </MenuItem>
+  <MenuItem>
+    <Text>Contact</Text>
+    <Url>/Home/Contact</Url>
+  </MenuItem>
+  <MenuItem>
     <Text>Administration</Text>
     <SecurityRole>FULLACCESS</SecurityRole>
     <MenuItem>
@@ -21,14 +29,6 @@
       <Url>/ManageUsers</Url>
       <SecurityRole>FULLACCESS</SecurityRole>
     </MenuItem>
-  </MenuItem>
-  <MenuItem>
-    <Text>About</Text>
-    <Url>/About</Url>
-  </MenuItem>
-  <MenuItem>
-    <Text>Contact</Text>
-    <Url>/Home/Contact</Url>
   </MenuItem>
   <MenuItem Authenticated="0">
     <Text>Login</Text>
