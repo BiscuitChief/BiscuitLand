@@ -146,10 +146,6 @@
     <Compile Include="SupportClasses\PortalUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BiscuitChief.mdf" />
-    <Content Include="App_Data\BiscuitChief_log.ldf">
-      <DependentUpon>BiscuitChief.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\EmailTemplates\ContactUs.txt" />
     <Content Include="App_Data\Xml\TopNavigation.xml">
       <SubType>Designer</SubType>
@@ -163,8 +159,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Properties\PublishProfiles\biscuitchief.net - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\biscuitchief.net - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\BiscuitChief.net web deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

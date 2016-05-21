@@ -28,5 +28,9 @@
     if (i < Model.DirectionList.Count - 1)
     { <hr /> }
 }
+@if (Model.DirectionList.Count > 0)
+{
+    <a id="Direction_AddNew" style="cursor:pointer;" onclick="Direction_AddNew();">&lt; Add New &gt;</a>
+}
 
 

@@ -11,6 +11,9 @@ using System.Web.Security;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Web.Configuration;
+using System.Web.Security;
+using System.Configuration;
 
 namespace BiscuitChief
 {
@@ -32,6 +35,21 @@ namespace BiscuitChief
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["LiveConfiguration"]))
+            {
+                //Make sure the connection string is encrypted when the web service is started.
+                Configuration config = WebConfigurationManager.OpenWebConfiguration("~");
+                ConfigurationSection connectionStrings = config.GetSection("connectionStrings");
+
+                //If the section is not protected by encryption, encrypt the section.
+                if (connectionStrings.SectionInformation.IsProtected == false)
+                {
+                    connectionStrings.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+                    //Save the settings
+                    config.Save();
+                }
+            }
         }
 
         public static void RegisterRoutes(RouteCollection routes)

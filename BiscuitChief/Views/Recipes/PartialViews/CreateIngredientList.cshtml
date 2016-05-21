@@ -42,3 +42,7 @@
     if (i < Model.IngredientList.Count - 1)
     { <hr/> }
 }
+@if (Model.IngredientList.Count > 0)
+{
+    <a id="Ingredient_AddNew" style="cursor:pointer;" onclick="Ingredient_AddNew();">&lt; Add New &gt;</a>
+}
