@@ -211,6 +211,11 @@ textarea {
     background-color:#888888;
 }
 
+.BtnSubmit:disabled
+{
+    background-color:#555555;
+}
+
 #SearchResultsHeading
 {
     font-weight:bold;

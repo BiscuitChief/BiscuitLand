@@ -56,6 +56,7 @@ namespace BiscuitChief
         {
             routes.MapRoute("DefaultRoute", "", new { controller = "Home", action = "Index" });
             routes.MapRoute("AboutRoute", "About", new { controller = "Home", action = "About" });
+            routes.MapRoute("DatabaseScripts", "DatabaseScripts", new { controller = "AdminFunctions", action = "DatabaseScripts" });
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

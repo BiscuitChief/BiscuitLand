@@ -29,6 +29,11 @@
       <Url>/ManageUsers</Url>
       <SecurityRole>FULLACCESS</SecurityRole>
     </MenuItem>
+    <MenuItem>
+      <Text>Database Scripts</Text>
+      <Url>/DatabaseScripts</Url>
+      <SecurityRole>FULLACCESS</SecurityRole>
+    </MenuItem>
   </MenuItem>
   <MenuItem Authenticated="0">
     <Text>Login</Text>

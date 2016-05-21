@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Download Database Files";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="InputForm">
+        <ul class="FormFields">
+            <li>
+                <label style="width:130px;">Database Scripts:</label>
+                <a href="~/DownloadFiles/BiscuitChiefDatabaseScripts.zip" download>&lt; Download &gt;</a>
+            </li>
+            <li>
+                <label style="width:130px;">Recipe Data:</label>
+                <a href="~/DownloadFiles/DataRestoreScript.sql" download>&lt; Download &gt;</a>
+            </li>
+        </ul>
+    </div>
+    
+    if (User.IsInRole("ADMIN"))
+    {
+        <div>
+            <input id="btnBackupRecipes" class="BtnSubmit" type="button" value="Backup Recipe Data" onclick="CreateBackupScript();" />
+        </div>
+        <div id="ResultsMessage"></div>
+    }
+
+    <script language="javascript" type="text/javascript">
+        function CreateBackupScript() {
+            $("#btnBackupRecipes").prop('disabled', true);
+            $("#ResultsMessage").html("Please Wait");
+
+            $.ajax({
+                method: "GET",
+                cache: false,
+                dataType: "HTML",
+                url: "/AdminFunctions/CreateDataBackupScripts",
+                success: function (data) {
+                    $("#ResultsMessage").html(data);
+                    $("#btnBackupRecipes").prop('disabled', false);
+                }
+            });
+
+        }
+    </script>
+}

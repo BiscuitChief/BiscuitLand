@@ -1247,6 +1247,47 @@ call Recipe_SaveDirections(0,pRecipeID,80,'Sprinkle chocolate over hot toffee. L
 call Recipe_SaveDirections(0,pRecipeID,90,'Sprinkle with reserved nuts, pressing lightly into chocolate. When cool break into pieces.','DIR',pDirectionID);
 
 
+call Recipe_SaveRecipe('Vegan Cheese Sticks','Great to make for parties to enjoy with friends or all by yourself. Cholesterol free!',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Daiya Shreds',2,'cups','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'breadcrumbs',1.5,'cups','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'garlic powder',5,'tablespoon','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'salt',1,'teaspoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'pepper',1,'teaspoon','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'dried oregano',1,'tablespoon','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'flour',1.5,'cups','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'egg replacer',8,'eggs','','ING',7,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'In small bowl, add garlic powder, salt, pepper and oregano and whisk it all together.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Add cheese shreds to glass bowl and make a double boiler on the stove, placing it over a pot of boiling water. Stir cheese until it melts. Add 2 tsp of garlic powder mixture from step 1 and stir together.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Line a bread pan with parchment paper and pour melted cheese in. Spread it out evenly and place in refrigerator for 1 hour.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'Carefully pull flattened cheese from pan and slice them in 10 to 12 sticks, about the width of a finger.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,4,'Pour breadcrumbs in bowl. Add remainder of garlic powder mixture from step 1 to bowl. Whisk together. Pour soy milk in separate bowl. Pour flour in separate bowl.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,5,'Pour canola oil into medium saucepan so it''s about 2 or 3 inches deep. Put it on a medium heat and let it warm up.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,6,'Dunk cheese stick in egg replacer mix, dredge it in the flour, dunk it back in the egg replacer mix and roll it in the breadcrumbs. Repeat for all the cheese sticks. Carefully place them in hot oil to fry. Once golden brown, take them out with a pair of tongs and set on a paper towel.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,7,'Serve with sauce of choice.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
+call Recipe_SaveRecipe('Vegan cornbread','IT''S LIKE BUTTA, BABY!',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'cornmeal',1,'cup','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'flour',1,'cup','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'sugar',0.5,'cup','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'baking soda',1,'teaspoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'almond milk',1.24,'cup','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'canola oil',0,'cup','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Ener-G “egg”',1,'egg replacer','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'butter',7,'teaspoons','','ING',7,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Preheat over at 400º','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Make your Ener-G “egg” then place it to the side.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'In a large bowl, cornmeal, sugar, salt and baking soda.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'In a separate bowl, mix together almond milk, canola oil and Ener-G egg.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,4,'Add wet ingredients to the dry ingredients until just combined-being sure not to over mix the batter.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,5,'Add in the vegan butter','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,6,'Pour into a baking pan and bake for 25 minutes or until a toothpick comes out clean.
+
+Cool for about 10 minutes before enjoying.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
 call Recipe_SaveRecipe('White Chocolate Chip and Toasted Pecan Butterscotch Blondies','',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'baking powder',0.5,'tsp','','ING',0,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'butter',0.3333,'cup','unsalted, melted and cooled slightly','ING',0,pIngredientID);
