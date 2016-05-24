@@ -202,7 +202,9 @@
     <Content Include="Views\AdminFunctions\DatabaseScripts.cshtml" />
     <Content Include="Views\AdminFunctions\DatabaseScripts - Copy.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

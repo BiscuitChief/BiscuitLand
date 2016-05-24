@@ -44,7 +44,11 @@
                         @Html.CheckBoxFor(item => Model.CategoryList[i].IsSelected)
                     </span>
                 }
-
+            </li>
+            <li>
+                <label>Images:</label>
+                <input type="file" id="NewImage" accept=".jpg,.jpeg,.png" />
+                <span id="UploadResult"></span>
             </li>
         </ul>
 
@@ -77,6 +81,7 @@
 
         $("#btnSave").click(SaveRecipe);
         $("#btnCancel").click(CancelRecipe);
+        $("#NewImage").on("change", UploadImage);
     }
 
     function SaveRecipe() {
@@ -227,6 +232,38 @@
             $("[id=Ingredients_NotesRow][ingindex=" + ingindex + "]").show();
         }
     }
+
+    function UploadImage(e) {
+        var files = e.target.files;
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                var data = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    data.append("file" + i, files[i]);
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Recipes/UploadImage',
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        $("#UploadResult").html(result);
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        var err = "Error " + " " + status + " " + p3 + " " + p4;
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        $("#UploadResult").html(err);
+                    }
+                });
+            } else {
+                alert("This browser doesn't support HTML5 file uploads!");
+            }
+        }
+    }
+
 
     //No longer needed as ModelState.Clear() seems to do the trick, leaving this here anway incase I need it later
     //function ResetValidation() {

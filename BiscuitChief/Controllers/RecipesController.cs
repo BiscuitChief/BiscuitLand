@@ -7,6 +7,10 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Web.Configuration;
+using System.Threading.Tasks;
+using System.IO;
+using System.Net;
+using System.Drawing;
 
 
 namespace BiscuitChief.Controllers
@@ -132,6 +136,8 @@ namespace BiscuitChief.Controllers
             }
         }
 
+        #region Ingredients
+
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "FULLACCESS")]
@@ -184,6 +190,10 @@ namespace BiscuitChief.Controllers
             return PartialView("PartialViews/CreateIngredientList", rcp);
         }
 
+        #endregion
+
+        #region Directions
+
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "FULLACCESS")]
@@ -234,6 +244,36 @@ namespace BiscuitChief.Controllers
             { rcp.DirectionList.RemoveAt(_index); }
             ModelState.Clear();
             return PartialView("PartialViews/CreateDirectionList", rcp);
+        }
+
+        #endregion
+
+        [HttpPost]
+        public async Task<JsonResult> UploadImage()
+        {
+            try
+            {
+                foreach (string file in Request.Files)
+                {
+                    HttpPostedFileBase fileContent = Request.Files[file];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        // get a stream
+                        string path = Path.Combine(Server.MapPath("~/App_Data/Images"), "test.png");
+                        Stream stream = fileContent.InputStream;
+                        Image img = Image.FromStream(stream);
+                        Image thumb = PortalUtility.ScaleImage(img, 100, 100);
+                        thumb.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("Upload failed");
+            }
+
+            return Json("File uploaded successfully");
         }
 
         #endregion
