@@ -72,6 +72,16 @@ namespace BiscuitChief.Models
                     this.CategoryList = new List<Recipe.Category>();
                     foreach (DataRow dr in ds.Tables["Categories"].Rows)
                     { this.CategoryList.Add(new Recipe.Category(dr["CategoryCode"].ToString(), dr["CategoryName"].ToString())); }
+
+                    cmd = new MySqlCommand("Recipe_Select_RecipeImages", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                    da = new MySqlDataAdapter(cmd);
+                    da.Fill(ds, "Images");
+
+                    this.ImageList = new List<RecipeImage>();
+                    foreach (DataRow dr in ds.Tables["Images"].Rows)
+                    { this.ImageList.Add(new RecipeImage(dr)); }
                 }
 
                 conn.Close();
@@ -230,6 +240,12 @@ namespace BiscuitChief.Models
                     //only save selected categories
                     if (cat.IsSelected)
                     { cat.SaveCategory(this.RecipeID, conn); }
+                }
+                //Save images
+                foreach (RecipeImage img in this.ImageList)
+                {
+                    img.RecipeID = this.RecipeID;
+                    img.SaveImage(conn);
                 }
 
                 conn.Close();

@@ -121,6 +121,9 @@ namespace BiscuitChief.Controllers
                 index = 0;
                 foreach (Models.RecipeDirection dir in rcp.DirectionList)
                 { dir.SortOrder = index++; }
+                index = 0;
+                foreach (Models.RecipeImage img in rcp.ImageList)
+                { img.SortOrder = index++; }
 
                 rcp.SaveRecipe();
             }

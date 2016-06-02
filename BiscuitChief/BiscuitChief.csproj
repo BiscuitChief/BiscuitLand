@@ -131,6 +131,7 @@
     <Compile Include="DataAccess\Recipe.cs" />
     <Compile Include="DataAccess\Login.cs" />
     <Compile Include="DataAccess\RecipeDirection.cs" />
+    <Compile Include="DataAccess\RecipeImage.cs" />
     <Compile Include="DataAccess\RecipeIngredient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,6 +139,7 @@
     <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\RecipeDirection.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\RecipeImage.cs" />
     <Compile Include="Models\RecipeIngredient.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeSearch.cs" />
@@ -150,13 +152,13 @@
     <Content Include="App_Data\Xml\TopNavigation.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\bootstrap.css" />
+    <Content Include="Content\CSS\bootstrap.min.css" />
     <Content Include="DownloadFiles\DataRestoreScript.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\CSS\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="DownloadFiles\BiscuitChiefDatabaseScripts.zip" />
@@ -203,7 +205,10 @@
     <Content Include="Views\AdminFunctions\DatabaseScripts - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Images\" />
+    <Folder Include="Content\Images\Recipes\Standard\" />
+    <Folder Include="Content\Images\Recipes\Thumbnails\" />
+    <Folder Include="Content\Images\Temp\Standard\" />
+    <Folder Include="Content\Images\Temp\Thumbnails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -28,6 +28,8 @@ namespace BiscuitChief.Models
 
         public List<Category> CategoryList { get; set; }
 
+        public List<RecipeImage> ImageList { get; set; }
+
         #endregion
 
         #region Private Properties
