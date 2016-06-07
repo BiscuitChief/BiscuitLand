@@ -203,6 +203,7 @@
     <Content Include="Views\Recipes\PartialViews\CreateDirectionList.cshtml" />
     <Content Include="Views\AdminFunctions\DatabaseScripts.cshtml" />
     <Content Include="Views\AdminFunctions\DatabaseScripts - Copy.cshtml" />
+    <Content Include="Views\Recipes\PartialViews\CreateImageList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\Recipes\Standard\" />

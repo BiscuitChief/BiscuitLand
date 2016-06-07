@@ -10,6 +10,7 @@ using System.Web.Configuration;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
+using System.IO;
 
 
 namespace BiscuitChief.Models
@@ -49,15 +50,59 @@ namespace BiscuitChief.Models
         /// <param name="conn">Open database connection</param>
         public void SaveImage(MySqlConnection conn)
         {
-            MySqlCommand cmd = new MySqlCommand("Recipe_SaveIngredient", conn);
+            MySqlCommand cmd = new MySqlCommand("Recipe_SaveImage", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@pRecipeID", this.RecipeID);
-            cmd.Parameters.AddWithValue("@pIngredientName", this.ImageName);
+            cmd.Parameters.AddWithValue("@pImageName", this.ImageName);
             cmd.Parameters.AddWithValue("@pIsPrimary", this.IsPrimary);
             cmd.Parameters.AddWithValue("@pSortOrder", this.SortOrder);
             cmd.ExecuteNonQuery();
 
-            //add code here to move images from the temp folder to the permanent folder
+            if (this.IsTemp)
+            {
+                string thumbtemp = HttpContext.Current.Server.MapPath(Path.Combine(Path_TempThumbnail, this.ImageName));
+                string thumbperm = HttpContext.Current.Server.MapPath(Path.Combine(Path_Thumbnail, this.ImageName));
+                string standardtemp = HttpContext.Current.Server.MapPath(Path.Combine(Path_TempStandard, this.ImageName));
+                string standardperm = HttpContext.Current.Server.MapPath(Path.Combine(Path_Standard, this.ImageName));
+
+                File.Move(thumbtemp, thumbperm);
+                File.Move(standardtemp, standardperm);
+            }
+        }
+
+        public void DeleteImage()
+        {
+            using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
+            {
+                conn.Open();
+                DeleteImage(conn);
+                conn.Close();
+            }
+        }
+
+        public void DeleteImage(MySqlConnection conn)
+        {
+            MySqlCommand cmd = new MySqlCommand("Recipe_DeleteImage", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@pRecipeID", this.RecipeID);
+            cmd.Parameters.AddWithValue("@pImageName", this.ImageName);
+            cmd.ExecuteNonQuery();
+
+            string thumbtemp = HttpContext.Current.Server.MapPath(Path.Combine(Path_TempThumbnail, this.ImageName));
+            string thumbperm = HttpContext.Current.Server.MapPath(Path.Combine(Path_Thumbnail, this.ImageName));
+            string standardtemp = HttpContext.Current.Server.MapPath(Path.Combine(Path_TempStandard, this.ImageName));
+            string standardperm = HttpContext.Current.Server.MapPath(Path.Combine(Path_Standard, this.ImageName));
+
+            if (this.IsTemp)
+            {
+                File.Delete(thumbtemp);
+                File.Delete(standardtemp);
+            }
+            else
+            {
+                File.Delete(thumbperm);
+                File.Delete(standardperm);
+            }
         }
 
         #endregion
@@ -70,6 +115,7 @@ namespace BiscuitChief.Models
             this.ImageName = dr["ImageName"].ToString().Trim();
             this.SortOrder = Convert.ToInt32(dr["SortOrder"]);
             this.IsPrimary = Convert.ToBoolean(dr["IsPrimary"]);
+            this.IsTemp = false;
         }
 
         #endregion

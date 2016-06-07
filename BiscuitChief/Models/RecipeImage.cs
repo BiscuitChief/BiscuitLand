@@ -20,6 +20,20 @@ namespace BiscuitChief.Models
 
         public bool IsPrimary { get; set; }
 
+        public bool IsTemp { get; set; }
+
+        public static string Path_TempThumbnail
+        { get { return "/Content/Images/Temp/Thumbnails"; } }
+
+        public static string Path_TempStandard
+        { get { return "/Content/Images/Temp/Standard"; } }
+
+        public static string Path_Thumbnail
+        { get { return "/Content/Images/Recipes/Thumbnails"; } }
+
+        public static string Path_Standard
+        { get { return "/Content/Images/Recipes/Standard"; } }
+
         #endregion
 
         #region Private Properties

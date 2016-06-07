@@ -251,33 +251,76 @@ namespace BiscuitChief.Controllers
 
         #endregion
 
+        #region Images
+
         [HttpPost]
-        public async Task<JsonResult> UploadImage()
+        public JsonResult UploadImage()
         {
             try
             {
+                string imagelist = String.Empty;
                 foreach (string file in Request.Files)
                 {
                     HttpPostedFileBase fileContent = Request.Files[file];
                     if (fileContent != null && fileContent.ContentLength > 0)
                     {
+
                         // get a stream
-                        string path = Path.Combine(Server.MapPath("~/App_Data/Images"), "test.png");
+                        string imagename = GetImageName();
+                        string path_thumb = Path.Combine(Server.MapPath(Models.RecipeImage.Path_TempThumbnail), imagename);
+                        string path_full = Path.Combine(Server.MapPath(Models.RecipeImage.Path_TempStandard), imagename);
+
                         Stream stream = fileContent.InputStream;
                         Image img = Image.FromStream(stream);
-                        Image thumb = PortalUtility.ScaleImage(img, 100, 100);
-                        thumb.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+
+                        Image thumbimg = PortalUtility.ScaleImage(img, 100, 100);
+                        thumbimg.Save(path_thumb, System.Drawing.Imaging.ImageFormat.Png);
+
+                        Image regimg = PortalUtility.ScaleImage(img, 600, 600);
+                        regimg.Save(path_full, System.Drawing.Imaging.ImageFormat.Png);
+
+                        imagelist += imagename + ",";
+
                     }
                 }
+                imagelist = imagelist.Trim(',');
+                return Json(new { Success = true, ResultText = imagelist });
             }
             catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("Upload failed");
+                return Json(new { Success = false, ResultText = "Upload failed: " + ex.Message });
             }
-
-            return Json("File uploaded successfully");
         }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Image_Add(Models.Recipe rcp, string _newimgname)
+        {
+            Models.RecipeImage img = new Models.RecipeImage();
+            img.ImageName = _newimgname;
+            img.IsTemp = true;
+
+            rcp.ImageList.Add(img);
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateImageList", rcp);
+        }
+
+        private string GetImageName()
+        {
+            string filename = String.Empty;
+            Random randnum = new Random();
+            
+            for (int i = 0; i <= 5; i++)
+            { filename += (char)(randnum.Next(65, 90)); }
+            filename += String.Format("{0:yyyyMMddhhmmssmmmm}", DateTime.Now);
+            filename += ".png";
+
+            return filename;
+        }
+
+        #endregion
 
         #endregion
 

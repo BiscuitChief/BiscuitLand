@@ -20,6 +20,7 @@ namespace BiscuitChief.Models
             this.IngredientList = new List<RecipeIngredient>();
             this.DirectionList = new List<RecipeDirection>();
             this.CategoryList = new List<Category>();
+            this.ImageList = new List<RecipeImage>();
         }
 
         public Recipe(string _recipeid, decimal _quantity = 1)
@@ -248,6 +249,25 @@ namespace BiscuitChief.Models
                     img.SaveImage(conn);
                 }
 
+                //Delete any images that have been removed
+                //Have to do this manually because we need to delete the physical image files
+                cmd = new MySqlCommand("Recipe_Select_RecipeImages", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@pRecipeID", this.RecipeID);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Images");
+
+                List<RecipeImage> currentimgs = new List<RecipeImage>();
+                foreach (DataRow dr in ds.Tables["Images"].Rows)
+                { currentimgs.Add(new RecipeImage(dr)); }
+
+                foreach (RecipeImage img in currentimgs)
+                {
+                    if (!(this.ImageList.Exists(x => x.ImageName == img.ImageName)))
+                    { img.DeleteImage(conn); }
+                }
+                
                 conn.Close();
             }
         }
@@ -257,6 +277,16 @@ namespace BiscuitChief.Models
             using (MySqlConnection conn = new MySqlConnection(PortalUtility.GetConnectionString("default")))
             {
                 conn.Open();
+                //Have to get all current images so we can delete the image files
+                MySqlCommand imgcmd = new MySqlCommand("Recipe_Select_RecipeImages", conn);
+                imgcmd.CommandType = CommandType.StoredProcedure;
+                imgcmd.Parameters.AddWithValue("@pRecipeID", _recipeid);
+                MySqlDataAdapter da = new MySqlDataAdapter(imgcmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Images");
+
+                foreach (DataRow dr in ds.Tables["Images"].Rows)
+                { (new RecipeImage(dr)).DeleteImage(conn); }
 
                 MySqlCommand cmd = new MySqlCommand("Recipe_DeleteRecipe", conn);
                 cmd.CommandType = CommandType.StoredProcedure;

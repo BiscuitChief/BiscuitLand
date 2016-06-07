@@ -1,0 +1,18 @@
+﻿@model BiscuitChief.Models.Recipe
+
+<label>Images:</label>
+<input type="file" id="NewImage" accept=".jpg,.jpeg,.png" />
+<span id="UploadResult"></span>
+<div style="clear:both;">
+    @for (int i = 0; i < Model.ImageList.Count; i++)
+    {
+        @Html.HiddenFor(model => model.ImageList[i].ImageName)
+        @Html.HiddenFor(model => model.ImageList[i].IsTemp)
+        <div class="ImageThumbnail">
+            @if (Model.ImageList[i].IsTemp)
+            { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_TempThumbnail, Model.ImageList[i].ImageName)' /> }
+            else
+            { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_Thumbnail, Model.ImageList[i].ImageName)' /> }
+        </div>
+    }
+</div>

@@ -11,6 +11,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Drawing;
+using System.IO;
 
 namespace BiscuitChief
 {
@@ -258,6 +259,19 @@ namespace BiscuitChief
             returnval = Convert.ToString(cmd.ExecuteScalar());
 
             return returnval;
+        }
+
+        public static void CleanupTempFiles()
+        {
+            string tempfolder = HttpContext.Current.Server.MapPath("/Content/Images/Temp");
+            DateTime cutoffdate = DateTime.Now.AddHours(-6);
+
+            foreach (string filename in Directory.GetFiles(tempfolder, "*", SearchOption.AllDirectories))
+            {
+                FileInfo fi = new FileInfo(filename);
+                if (fi.CreationTime < cutoffdate)
+                { File.Delete(filename); }
+            }
         }
 
         public class PagerHelper

@@ -45,10 +45,8 @@
                     </span>
                 }
             </li>
-            <li>
-                <label>Images:</label>
-                <input type="file" id="NewImage" accept=".jpg,.jpeg,.png" />
-                <span id="UploadResult"></span>
+            <li id ="ImagesForm">
+                @Html.Partial("PartialViews/CreateImageList", Model)
             </li>
         </ul>
 
@@ -78,10 +76,10 @@
     {
         SetupIngredients();
         SetupDirections();
+        SetupImages();
 
         $("#btnSave").click(SaveRecipe);
         $("#btnCancel").click(CancelRecipe);
-        $("#NewImage").on("change", UploadImage);
     }
 
     function SaveRecipe() {
@@ -248,9 +246,7 @@
                     contentType: false,
                     processData: false,
                     data: data,
-                    success: function (result) {
-                        $("#UploadResult").html(result);
-                    },
+                    success: AddImage,
                     error: function (xhr, status, p3, p4) {
                         var err = "Error " + " " + status + " " + p3 + " " + p4;
                         if (xhr.responseText && xhr.responseText[0] == "{")
@@ -262,6 +258,33 @@
                 alert("This browser doesn't support HTML5 file uploads!");
             }
         }
+    }
+
+    function AddImage(data) {
+        if (data.Success) {
+            $.ajax({
+                method: "POST",
+                cache: false,
+                dataType: "HTML",
+                url: "/Recipes/Image_Add",
+                data: $("form").serialize() + "&_newimgname=" + data.ResultText,
+                success: Images_Render
+            });
+        } else {
+            $("#UploadResult").html("Error: " + data.ResultText);
+        }
+    }
+
+    function Images_Render(data) {
+        //Render partial view
+        $("#ImagesForm").html(data);
+        SetupImages();
+    }
+
+    function SetupImages() {
+        var imginput = $("#NewImage");
+        imginput.replaceWith(imginput.val('').clone(true));
+        $("#NewImage").on("change", UploadImage);
     }
 
 
