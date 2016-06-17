@@ -17,10 +17,10 @@
     </ul>
     <div style="float:right; width:100px; text-align:right;">
         @if (i > 0)
-        { <a id="Direction_MoveUp" style="cursor:pointer;" onclick="Direction_MoveUp(@i);">Move Up &#9650;</a> }
+        { <a id="Direction_MovePrevious" style="cursor:pointer;" onclick="Direction_MovePrevious(@i);">Move Up &#9650;</a> }
         <br />
         @if (i < Model.DirectionList.Count - 1)
-        { <a id="Direction_MoveDown" style="cursor:pointer;" onclick="Direction_MoveDown(@i);">Move Down &#9660;</a> }
+        { <a id="Direction_MoveNext" style="cursor:pointer;" onclick="Direction_MoveNext(@i);">Move Down &#9660;</a> }
         <br />
         <div style="padding-top:20px;"><a id="Direction_Delete" style="cursor:pointer;" onclick="Direction_Delete(@i);">&lt; Delete &gt;</a></div>
     </div>

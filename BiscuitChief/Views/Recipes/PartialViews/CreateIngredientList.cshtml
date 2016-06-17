@@ -31,10 +31,10 @@
     </ul>
     <div style="float:right; width:100px; text-align:right;">
         @if (i > 0)
-        { <a id="Ingredient_MoveUp" style="cursor:pointer;" onclick="Ingredient_MoveUp(@i);">Move Up &#9650;</a> }
+        { <a id="Ingredient_MovePrevious" style="cursor:pointer;" onclick="Ingredient_MovePrevious(@i);">Move Up &#9650;</a> }
         <br />
         @if (i < Model.IngredientList.Count - 1)
-        { <a id="Ingredient_MoveDown" style="cursor:pointer;" onclick="Ingredient_MoveDown(@i);">Move Down &#9660;</a> }
+        { <a id="Ingredient_MoveNext" style="cursor:pointer;" onclick="Ingredient_MoveNext(@i);">Move Down &#9660;</a> }
         <br />
         <div style="padding-top:20px;"><a id="Ingredient_Delete" style="cursor:pointer;" onclick="Ingredient_Delete(@i);">&lt; Delete &gt;</a></div>
     </div>

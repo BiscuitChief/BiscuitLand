@@ -8,11 +8,25 @@
     {
         @Html.HiddenFor(model => model.ImageList[i].ImageName)
         @Html.HiddenFor(model => model.ImageList[i].IsTemp)
-        <div class="ImageThumbnail">
-            @if (Model.ImageList[i].IsTemp)
-            { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_TempThumbnail, Model.ImageList[i].ImageName)' /> }
-            else
-            { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_Thumbnail, Model.ImageList[i].ImageName)' /> }
+        <div class="ImageEditor">
+            <div class="ImageThumbnail">
+                @if (Model.ImageList[i].IsTemp)
+                { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_TempThumbnail, Model.ImageList[i].ImageName)' /> }
+                else
+                { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_Thumbnail, Model.ImageList[i].ImageName)' /> }
+            </div>
+            <div class="ImageControls">
+                <div style="display:inline-block; width:30px; margin-left:1px; text-align:left;">
+                    @if (i > 0)
+                    { <a id="Image_MovePrevious" style="cursor:pointer;" onclick="Image_MovePrevious(@i);">&#9668;</a> }
+                </div>
+                <a id="Image_Delete" style="cursor:pointer; color:#FF0000;" onclick="Image_Delete(@i);">X</a>
+                <div style="display:inline-block; width:30px; text-align:right; font-size:0px;">
+                    @if (i < Model.ImageList.Count - 1)
+                    { <a id="Image_MoveNext" style="cursor:pointer; font-size:14px;" onclick="Image_MoveNext(@i);">&#9658;</a> }
+                    &nbsp;
+                </div>
+            </div>
         </div>
     }
 </div>

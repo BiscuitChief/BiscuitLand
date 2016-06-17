@@ -154,12 +154,12 @@ namespace BiscuitChief.Controllers
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "FULLACCESS")]
-        public ActionResult Ingredient_MoveUp(Models.Recipe rcp, int _index)
+        public ActionResult Ingredient_MovePrevious(Models.Recipe rcp, int _index)
         {
-            if (rcp.IngredientList.Count - 1 > _index)
+            if (rcp.IngredientList.Count - 1 > 0)
             {
-                Models.RecipeIngredient temp = rcp.IngredientList[_index + 1];
-                rcp.IngredientList[_index + 1] = rcp.IngredientList[_index];
+                Models.RecipeIngredient temp = rcp.IngredientList[_index - 1];
+                rcp.IngredientList[_index - 1] = rcp.IngredientList[_index];
                 rcp.IngredientList[_index] = temp;
             }
             ModelState.Clear();
@@ -169,12 +169,12 @@ namespace BiscuitChief.Controllers
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "FULLACCESS")]
-        public ActionResult Ingredient_MoveDown(Models.Recipe rcp, int _index)
+        public ActionResult Ingredient_MoveNext(Models.Recipe rcp, int _index)
         {
-            if (rcp.IngredientList.Count - 1 > 0)
+            if (rcp.IngredientList.Count - 1 > _index)
             {
-                Models.RecipeIngredient temp = rcp.IngredientList[_index - 1];
-                rcp.IngredientList[_index - 1] = rcp.IngredientList[_index];
+                Models.RecipeIngredient temp = rcp.IngredientList[_index + 1];
+                rcp.IngredientList[_index + 1] = rcp.IngredientList[_index];
                 rcp.IngredientList[_index] = temp;
             }
             ModelState.Clear();
@@ -210,12 +210,12 @@ namespace BiscuitChief.Controllers
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "FULLACCESS")]
-        public ActionResult Direction_MoveUp(Models.Recipe rcp, int _index)
+        public ActionResult Direction_MovePrevious(Models.Recipe rcp, int _index)
         {
-            if (rcp.DirectionList.Count - 1 > _index)
+            if (rcp.DirectionList.Count - 1 > 0)
             {
-                Models.RecipeDirection temp = rcp.DirectionList[_index + 1];
-                rcp.DirectionList[_index + 1] = rcp.DirectionList[_index];
+                Models.RecipeDirection temp = rcp.DirectionList[_index - 1];
+                rcp.DirectionList[_index - 1] = rcp.DirectionList[_index];
                 rcp.DirectionList[_index] = temp;
             }
             ModelState.Clear();
@@ -225,12 +225,12 @@ namespace BiscuitChief.Controllers
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "FULLACCESS")]
-        public ActionResult Direction_MoveDown(Models.Recipe rcp, int _index)
+        public ActionResult Direction_MoveNext(Models.Recipe rcp, int _index)
         {
-            if (rcp.DirectionList.Count - 1 > 0)
+            if (rcp.DirectionList.Count - 1 > _index)
             {
-                Models.RecipeDirection temp = rcp.DirectionList[_index - 1];
-                rcp.DirectionList[_index - 1] = rcp.DirectionList[_index];
+                Models.RecipeDirection temp = rcp.DirectionList[_index + 1];
+                rcp.DirectionList[_index + 1] = rcp.DirectionList[_index];
                 rcp.DirectionList[_index] = temp;
             }
             ModelState.Clear();
@@ -318,6 +318,62 @@ namespace BiscuitChief.Controllers
             filename += ".png";
 
             return filename;
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Image_MovePrevious(Models.Recipe rcp, int _index)
+        {
+            if (rcp.ImageList.Count - 1 > 0)
+            {
+                Models.RecipeImage temp = rcp.ImageList[_index - 1];
+                rcp.ImageList[_index - 1] = rcp.ImageList[_index];
+                rcp.ImageList[_index] = temp;
+            }
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateImageList", rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Image_MoveNext(Models.Recipe rcp, int _index)
+        {
+            if (rcp.ImageList.Count - 1 > _index)
+            {
+                Models.RecipeImage temp = rcp.ImageList[_index + 1];
+                rcp.ImageList[_index + 1] = rcp.ImageList[_index];
+                rcp.ImageList[_index] = temp;
+            }
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateImageList", rcp);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [Authorize(Roles = "FULLACCESS")]
+        public ActionResult Image_Delete(Models.Recipe rcp, int _index)
+        {
+
+            if (rcp.ImageList.Count > _index)
+            {
+                //Delete temp images if necessary
+                if (rcp.ImageList[_index].IsTemp)
+                {
+                    string thumbtemp = Server.MapPath(Path.Combine(Models.RecipeImage.Path_TempThumbnail, rcp.ImageList[_index].ImageName));
+                    string standardtemp = Server.MapPath(Path.Combine(Models.RecipeImage.Path_TempStandard, rcp.ImageList[_index].ImageName));
+                    if (System.IO.File.Exists(thumbtemp))
+                    { System.IO.File.Delete(thumbtemp); }
+                    if (System.IO.File.Exists(standardtemp))
+                    { System.IO.File.Delete(standardtemp); }
+                }
+
+                rcp.ImageList.RemoveAt(_index);
+            }
+            ModelState.Clear();
+            return PartialView("PartialViews/CreateImageList", rcp);
         }
 
         #endregion

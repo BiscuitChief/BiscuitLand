@@ -424,5 +424,28 @@ textarea {
 {
     float:left;
     width:100px;
+    height:100px;
     margin:5px;
+}
+
+.ImageEditor
+{
+    width:100px;
+    float:left;
+    margin:5px;
+}
+
+.ImageEditor .ImageControls
+{
+    width:100%;
+    display:block;
+    text-align:center;
+    align-content:center;
+}
+
+.ImageEditor .ImageThumbnail
+{
+    margin:0px;
+    float:none;
+    height:inherit;
 }

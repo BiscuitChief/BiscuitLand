@@ -107,23 +107,23 @@
         });
     }
 
-    function Ingredient_MoveUp(index) {
+    function Ingredient_MovePrevious(index) {
         $.ajax({
             method: "POST",
             cache: false,
             dataType: "HTML",
-            url: "/Recipes/Ingredient_MoveDown",
+            url: "/Recipes/Ingredient_MovePrevious",
             data: $("form").serialize() + "&_index=" + index,
             success: Ingredient_Render
         });
     }
 
-    function Ingredient_MoveDown(index) {
+    function Ingredient_MoveNext(index) {
         $.ajax({
             method: "POST",
             cache: false,
             dataType: "HTML",
-            url: "/Recipes/Ingredient_MoveUp",
+            url: "/Recipes/Ingredient_MoveNext",
             data: $("form").serialize() + "&_index=" + index,
             success: Ingredient_Render
         });
@@ -159,23 +159,23 @@
         });
     }
 
-    function Direction_MoveUp(index) {
+    function Direction_MovePrevious(index) {
         $.ajax({
             method: "POST",
             cache: false,
             dataType: "HTML",
-            url: "/Recipes/Direction_MoveDown",
+            url: "/Recipes/Direction_MovePrevious",
             data: $("form").serialize() + "&_index=" + index,
             success: Direction_Render
         });
     }
 
-    function Direction_MoveDown(index) {
+    function Direction_MoveNext(index) {
         $.ajax({
             method: "POST",
             cache: false,
             dataType: "HTML",
-            url: "/Recipes/Direction_MoveUp",
+            url: "/Recipes/Direction_MoveNext",
             data: $("form").serialize() + "&_index=" + index,
             success: Direction_Render
         });
@@ -246,7 +246,7 @@
                     contentType: false,
                     processData: false,
                     data: data,
-                    success: AddImage,
+                    success: Image_AddNew,
                     error: function (xhr, status, p3, p4) {
                         var err = "Error " + " " + status + " " + p3 + " " + p4;
                         if (xhr.responseText && xhr.responseText[0] == "{")
@@ -260,7 +260,7 @@
         }
     }
 
-    function AddImage(data) {
+    function Image_AddNew(data) {
         if (data.Success) {
             $.ajax({
                 method: "POST",
@@ -273,6 +273,39 @@
         } else {
             $("#UploadResult").html("Error: " + data.ResultText);
         }
+    }
+
+    function Image_MovePrevious(index) {
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Image_MovePrevious",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Images_Render
+        });
+    }
+
+    function Image_MoveNext(index) {
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Image_MoveNext",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Images_Render
+        });
+    }
+
+    function Image_Delete(index) {
+        $.ajax({
+            method: "POST",
+            cache: false,
+            dataType: "HTML",
+            url: "/Recipes/Image_Delete",
+            data: $("form").serialize() + "&_index=" + index,
+            success: Images_Render
+        });
     }
 
     function Images_Render(data) {
