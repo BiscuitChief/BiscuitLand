@@ -256,40 +256,47 @@ namespace BiscuitChief.Controllers
         [HttpPost]
         public JsonResult UploadImage()
         {
-            try
+            if (User.IsInRole("ADMIN"))
             {
-                string imagelist = String.Empty;
-                foreach (string file in Request.Files)
+                try
                 {
-                    HttpPostedFileBase fileContent = Request.Files[file];
-                    if (fileContent != null && fileContent.ContentLength > 0)
+                    string imagelist = String.Empty;
+                    foreach (string file in Request.Files)
                     {
+                        HttpPostedFileBase fileContent = Request.Files[file];
+                        if (fileContent != null && fileContent.ContentLength > 0)
+                        {
 
-                        // get a stream
-                        string imagename = GetImageName();
-                        string path_thumb = Path.Combine(Server.MapPath(Models.RecipeImage.Path_TempThumbnail), imagename);
-                        string path_full = Path.Combine(Server.MapPath(Models.RecipeImage.Path_TempStandard), imagename);
+                            // get a stream
+                            string imagename = GetImageName();
+                            string path_thumb = Path.Combine(Server.MapPath(Models.RecipeImage.Path_TempThumbnail), imagename);
+                            string path_full = Path.Combine(Server.MapPath(Models.RecipeImage.Path_TempStandard), imagename);
 
-                        Stream stream = fileContent.InputStream;
-                        Image img = Image.FromStream(stream);
+                            Stream stream = fileContent.InputStream;
+                            Image img = Image.FromStream(stream);
 
-                        Image thumbimg = PortalUtility.ScaleImage(img, 100, 100);
-                        thumbimg.Save(path_thumb, System.Drawing.Imaging.ImageFormat.Png);
+                            Image thumbimg = PortalUtility.ScaleImage(img, 100, 100);
+                            thumbimg.Save(path_thumb, System.Drawing.Imaging.ImageFormat.Png);
 
-                        Image regimg = PortalUtility.ScaleImage(img, 600, 600);
-                        regimg.Save(path_full, System.Drawing.Imaging.ImageFormat.Png);
+                            Image regimg = PortalUtility.ScaleImage(img, 600, 600);
+                            regimg.Save(path_full, System.Drawing.Imaging.ImageFormat.Png);
 
-                        imagelist += imagename + ",";
+                            imagelist += imagename + ",";
 
+                        }
                     }
+                    imagelist = imagelist.Trim(',');
+                    return Json(new { Success = true, ResultText = imagelist });
                 }
-                imagelist = imagelist.Trim(',');
-                return Json(new { Success = true, ResultText = imagelist });
+                catch (Exception ex)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Success = false, ResultText = "Upload failed: " + ex.Message });
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { Success = false, ResultText = "Upload failed: " + ex.Message });
+                return Json(new { Success = false, ResultText = "Demo login does not allow image uploads." });
             }
         }
 
