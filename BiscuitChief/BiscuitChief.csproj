@@ -163,6 +163,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="DownloadFiles\BiscuitChiefDatabaseScripts.zip" />
     <None Include="Properties\PublishProfiles\BiscuitChief.net web deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\File System.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
