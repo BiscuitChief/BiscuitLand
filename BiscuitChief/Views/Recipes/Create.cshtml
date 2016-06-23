@@ -71,6 +71,15 @@
         </div>
 </div>
 
+<div id="ImageModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <img id="ImageView" />
+        </div>
+    </div>
+</div>
+
+
 <script language="javascript" type="text/javascript">
     $(document).ready()
     {
@@ -320,6 +329,30 @@
         $("#NewImage").on("change", UploadImage);
     }
 
+    function ShowImage(index) {
+        SetImage(index);
+        $("#ImageModal").modal();
+    }
+
+    function SetImage(index){
+        if (!$("#ImageList_" + index + "__ImageName").length) {
+            index = 0;
+        }
+        var imagename = $("#ImageList_" + index + "__ImageName").val();
+        var istemp = $("#ImageList_" + index + "__IsTemp").val();
+        var imagepath = "";
+        if (istemp == "False"){
+            imagepath = "/Content/Images/Recipes/Standard/" + imagename
+        } else {
+            imagepath = "/Content/Images/Temp/Standard/" + imagename
+        }
+
+        $("#ImageView").attr({
+            src: imagepath,
+            alt: "Recipe Image",
+            onclick: "SetImage(" + (index + 1) + ");"
+        });
+    }
 
     //No longer needed as ModelState.Clear() seems to do the trick, leaving this here anway incase I need it later
     //function ResetValidation() {

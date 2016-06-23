@@ -33,6 +33,19 @@
                 @Model.Description
             </div>
         }
+        
+        @if (Model.ImageList.Count > 0)
+        {
+            <div style="clear:both;"></div>
+            for (int i = 0; i < Model.ImageList.Count; i++)
+            {
+                @Html.HiddenFor(model => model.ImageList[i].ImageName)
+                <div class="ImageThumbnail">
+                    <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_Thumbnail, Model.ImageList[i].ImageName)' onclick="ShowImage(@i);" />
+                </div>
+            }
+            <div style="clear:both;"></div>
+        }
     </div>
     <b>Quantity:</b>
     @Html.DropDownListFor(model => model.Quantity, (IEnumerable<SelectListItem>)ViewBag.QuantityValues)
@@ -81,15 +94,43 @@
 
     @Html.HiddenFor(model => model.RecipeID);
 
+    <div id="ImageModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <img id="ImageView" />
+            </div>
+        </div>
+    </div>
+
+
     <script language="javascript" type="text/javascript">
         
-        $("#Quantity").change(function () {
+        $(document).ready()
+        {
+            $("#Quantity").change(function () {
+                var id = $("#RecipeID").val();
+                var qty = $("#Quantity").val();
 
-            var id = $("#RecipeID").val();
-            var qty = $("#Quantity").val();
+                window.open('@Url.Action("Recipe", "Recipes")?recipeid=' + id + "&quantity=" + qty, "_self");
+            });
+        }
 
-            window.open('@Url.Action("Recipe", "Recipes")?recipeid=' + id + "&quantity=" + qty, "_self");
-        });
+        function ShowImage(index) {
+            SetImage(index);
+            $("#ImageModal").modal();
+        }
+
+        function SetImage(index){
+            if (!$("#ImageList_" + index + "__ImageName").length) {
+                index = 0;
+            }
+            var imagename = $("#ImageList_" + index + "__ImageName").val();
+            $("#ImageView").attr({
+                src: "/Content/Images/Recipes/Standard/" + imagename,
+                alt: "Recipe Image",
+                onclick: "SetImage(" + (index + 1) + ");"
+            });
+        }
 
     </script>
 

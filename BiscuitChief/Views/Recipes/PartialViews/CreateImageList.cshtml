@@ -11,9 +11,9 @@
         <div class="ImageEditor">
             <div class="ImageThumbnail">
                 @if (Model.ImageList[i].IsTemp)
-                { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_TempThumbnail, Model.ImageList[i].ImageName)' /> }
+                { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_TempThumbnail, Model.ImageList[i].ImageName)' onclick="ShowImage(@i);" /> }
                 else
-                { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_Thumbnail, Model.ImageList[i].ImageName)' /> }
+                { <img src='@Path.Combine(BiscuitChief.Models.RecipeImage.Path_Thumbnail, Model.ImageList[i].ImageName)' onclick="ShowImage(@i);" /> }
             </div>
             <div class="ImageControls">
                 <div style="display:inline-block; width:30px; margin-left:1px; text-align:left;">

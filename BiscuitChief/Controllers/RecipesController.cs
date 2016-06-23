@@ -278,7 +278,7 @@ namespace BiscuitChief.Controllers
                             Image thumbimg = PortalUtility.ScaleImage(img, 100, 100);
                             thumbimg.Save(path_thumb, System.Drawing.Imaging.ImageFormat.Png);
 
-                            Image regimg = PortalUtility.ScaleImage(img, 600, 600);
+                            Image regimg = PortalUtility.ScaleImage(img, 800, 600);
                             regimg.Save(path_full, System.Drawing.Imaging.ImageFormat.Png);
 
                             imagelist += imagename + ",";
