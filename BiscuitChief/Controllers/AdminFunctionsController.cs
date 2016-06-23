@@ -25,6 +25,7 @@ namespace BiscuitChief.Controllers
                 string ingredientsaveproc = "call Recipe_SaveIngredient(0,pRecipeID,'{0}',{1},'{2}','{3}','{4}',{5},pIngredientID);";
                 string directionsaveproc = "call Recipe_SaveDirections(0,pRecipeID,{0},'{1}','{2}',pDirectionID);";
                 string categorysaveproc = "call Recipe_SaveRecipeCategory(pRecipeID,'{0}');";
+                string imagesaveproc = "call Recipe_SaveImage(pRecipeID,'{0}','{1}','{2}');";
 
                 StringBuilder backupscript = new StringBuilder();
                 backupscript.AppendLine("declare pRecipeID varchar(36);");
@@ -35,6 +36,7 @@ namespace BiscuitChief.Controllers
                 backupscript.AppendLine("TRUNCATE TABLE Recipe_Ingredients;");
                 backupscript.AppendLine("TRUNCATE TABLE Recipe_Directions;");
                 backupscript.AppendLine("TRUNCATE TABLE Recipe_Categories;");
+                backupscript.AppendLine("TRUNCATE TABLE Recipe_Images;");
                 backupscript.AppendLine();
 
                 List<Models.Recipe> recipes = Models.Recipe.SearchRecipes(String.Empty, new string[] { }, new string[] { });
@@ -57,6 +59,11 @@ namespace BiscuitChief.Controllers
                     foreach (Models.Recipe.Category ctg in rcp.CategoryList)
                     {
                         backupscript.AppendLine(String.Format(categorysaveproc, ctg.CategoryCode));
+                    }
+
+                    foreach (Models.RecipeImage img in rcp.ImageList)
+                    {
+                        backupscript.AppendLine(String.Format(imagesaveproc, img.ImageName, img.IsPrimary, img.SortOrder));
                     }
                     backupscript.AppendLine();
                     backupscript.AppendLine();
