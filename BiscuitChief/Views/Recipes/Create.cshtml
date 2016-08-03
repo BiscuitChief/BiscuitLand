@@ -155,7 +155,7 @@
         //Render partial view
         $("#IngredientsForm").html(data);
         SetupIngredients();
-        //ResetValidation();
+        ResetValidation();
     }
 
 
@@ -207,7 +207,7 @@
         //Render partial view
         $("#DirectionsForm").html(data);
         SetupDirections();
-        //ResetValidation();
+        ResetValidation();
     }
 
     function SetupIngredients()
@@ -323,6 +323,7 @@
         //Render partial view
         $("#ImagesForm").html(data);
         SetupImages();
+        ResetValidation();
     }
 
     function SetupImages() {
@@ -356,18 +357,18 @@
         });
     }
 
-    //No longer needed as ModelState.Clear() seems to do the trick, leaving this here anway incase I need it later
-    //function ResetValidation() {
-    //    //Hide validation, we don't need to see it in this case
-    //    $("[class='input-validation-error']").removeClass("input-validation-error");
-    //    $("[class^='field-validation-error']").html("");
-    //    $("[class^='field-validation-error']").addClass("field-validation-valid");
-    //    $("[class^='field-validation-error']").removeClass("field-validation-error");
-    //    //Update unobtrusive validation to include dynamically added form elements
-    //    var form = $("form");
-    //    form.removeData('validator');
-    //    form.removeData('unobtrusiveValidation');
-    //    $.validator.unobtrusive.parse(form);
-    //}
+    function ResetValidation() {
+        //No longer needed as ModelState.Clear() seems to do the trick, leaving this here anway incase I need it later
+        //    //Hide validation, we don't need to see it in this case
+        //    $("[class='input-validation-error']").removeClass("input-validation-error");
+        //    $("[class^='field-validation-error']").html("");
+        //    $("[class^='field-validation-error']").addClass("field-validation-valid");
+        //    $("[class^='field-validation-error']").removeClass("field-validation-error");
+        //    //Update unobtrusive validation to include dynamically added form elements
+        var form = $("form");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
+    }
 </script>
 }

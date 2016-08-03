@@ -71,7 +71,7 @@ namespace BiscuitChief.Models
                     if (basenum > 0)
                     { this.Quantity = basenum; }
                     if (numerator > 0 && denominator > 0)
-                    { this.Quantity += (numerator / denominator); }
+                    { this.Quantity = (this.Quantity ?? 0) + (numerator / denominator); }
                 }
             }
 
