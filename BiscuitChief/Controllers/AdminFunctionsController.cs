@@ -69,7 +69,7 @@ namespace BiscuitChief.Controllers
                     backupscript.AppendLine();
                 }
 
-                System.IO.File.WriteAllText(Server.MapPath("/DownloadFiles/DataRestoreScript.sql"), backupscript.ToString());
+                System.IO.File.WriteAllText(Server.MapPath("/DownloadFiles/DataRestoreScript.txt"), backupscript.ToString());
 
                 return "Success";
             }

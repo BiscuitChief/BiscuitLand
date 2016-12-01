@@ -12,8 +12,8 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Web.Configuration;
-using System.Web.Security;
 using System.Configuration;
+using System.Web.Http;
 
 namespace BiscuitChief
 {
@@ -32,6 +32,8 @@ namespace BiscuitChief
             RegisterRoutes(RouteTable.Routes);
 
             AreaRegistration.RegisterAllAreas();
+
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

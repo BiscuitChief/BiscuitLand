@@ -6,6 +6,7 @@ TRUNCATE TABLE Recipe_Recipes;
 TRUNCATE TABLE Recipe_Ingredients;
 TRUNCATE TABLE Recipe_Directions;
 TRUNCATE TABLE Recipe_Categories;
+TRUNCATE TABLE Recipe_Images;
 
 call Recipe_SaveRecipe('Aligot','French Mashed Potatoes',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'black pepper',0,'','','ING',0,pIngredientID);
@@ -111,6 +112,18 @@ call Recipe_SaveDirections(0,pRecipeID,60,'Allow to continue mixing, then baking
 call Recipe_SaveDirections(0,pRecipeID,70,'Bread is ready when tone sounds.','DIR',pDirectionID);
 
 
+call Recipe_SaveRecipe('Basic Seitan','Wheat Meat (Vegan Meat Substitute)',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vital Wheat Gluten',1.5,'Cup','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Nutritional yeast',3,'Tablespoons','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vegetable Broth',0.5,'cup','Water can be substituted','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Soy sauce',0.25,'Cup','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Olive Oil',1,'Tablespoon','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Garlic',1.5,'Teaspoons','Can use 2 teaspoons garlic powder','ING',5,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Stir vital wheat gluten, nutritional yeast, 1/2 cup vegetable broth, liquid amino acid, olive oil, and garlic in a bowl until ingredients come together into a ball. Knead ball until dough has a rubbery texture. Divide dough into 3 equal pieces and shape into 1/2-inch thick patties.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Bring 8 cups of water to a boil in a large pot. Carefully place patties into boiling broth; cover pot and return to a boil. Set lid slightly askew to vent steam and reduce heat to low. Continue simmering patties until firm, turning patties occasionally, about 1 hour. Remove pot from heat and set lid aside. Allow patties to cool in broth for 15 minutes before serving.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
 call Recipe_SaveRecipe('Beef Lasagna','',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'black pepper',0,'','to taste','ING',0,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'carrot',1,'','finely shredded','ING',0,pIngredientID);
@@ -185,6 +198,21 @@ call Recipe_SaveDirections(0,pRecipeID,150,'Bake for 35-40 minutes or until the 
 call Recipe_SaveDirections(0,pRecipeID,160,'Use the parchment paper to pull the cheesecake out of the pan and cut into bars.','DIR',pDirectionID);
 
 
+call Recipe_SaveRecipe('Blueberry muffins','Very Simple Blueberry Muffins',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Flour- self rising',3,'cups','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sugar',1,'cup','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Salt',2,'Teaspoon','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Baking Powder',1,'Teaspoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vanilla extract',1,'Teaspoon','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Almond Milk',1.5,'Cups','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Coconut Oil (Melted)',0.5,'Cup','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Blueberries (fresh)',2,'Cups','','ING',7,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Combine flour, sugar, salt, and baking powder in a mixing bowl. Mix in almond milk, vanilla extract and oil.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Gently fold in blueberries.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Pour into oiled muffin pan and bake at 400 degrees for 20mins.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
 call Recipe_SaveRecipe('Bourbon Buttermilk Bundt Cake','Bourbon buttermilk bundt cake with a bourbon buttermilk glaze.  Makes one 10-inch cake, enough for 10-12 servings.',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'baking powder',1,'tsp','','ING',0,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'baking soda',0.5,'tsp','','ING',0,pIngredientID);
@@ -226,6 +254,24 @@ call Recipe_SaveIngredient(0,pRecipeID,'sugar',3,'tbsp','','ING',0,pIngredientID
 call Recipe_SaveIngredient(0,pRecipeID,'vegetable oil',3,'tbsp','','ING',0,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'water',1,'cup','warm (110 degrees F/45 degrees C)','ING',0,pIngredientID);
 call Recipe_SaveDirections(0,pRecipeID,10,'Settings: White bread, light crust, 1.5lbs loaf','DIR',pDirectionID);
+
+
+call Recipe_SaveRecipe('Brownies','Zombie Brownies',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Earth Balance Buttery Spread (room temp)',0,'cup','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Earth Balance Shortening',0,'cup','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sugar',1,'cup','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Silken Tofu',0,'cup','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vanilla extract',1,'Teaspoon','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Almond milk',0,'cup','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Cocoa powder',0,'cup','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Baking powder',0,'teasponn','','ING',7,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Salt',0,'Teaspoon','','ING',8,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'flour',0,'cup','','ING',9,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Maple Syrup',0,'Cup','','ING',10,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Pre- heat oven to 350 degrees.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'In mixing bowl, add room temperature buttery spread and shortening and mix it together with a fork. Add sugar, baking powder, sea salt, cocoa powder and tofu. Mix it all together. Add vanilla extract, almond milk, agave nectar and peanut butter. Mix well. Add flour and stir in chocolate chips.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Line 8x8 glassware dish with parchment paper and pour in brownie batter. Spread out evenly and bake in oven for 40 to 45 min at 350 degrees. When you can put a toothpick in brownies and it comes out clean, it is done','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
 
 
 call Recipe_SaveRecipe('Buffalo Chicken Pasta Salad','',0,pRecipeID);
@@ -490,6 +536,51 @@ call Recipe_SaveDirections(0,pRecipeID,20,'Cover and refrigerate overnight. Once
 call Recipe_SaveDirections(0,pRecipeID,30,'Once out of the fryer, season with salt, pepper and chopped cilantro.','DIR',pDirectionID);
 
 
+call Recipe_SaveRecipe('Chocolate Cake','that happens to be VEGAN.',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Flour',1.25,'Cup','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sugar',1,'Cup','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Unsweetned coco powder',0.3333,'Cup','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Baking soda',1,'teaspoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Salt',0.5,'Teaspoon','`','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Warm water',1,'Cup','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vanilla extract',1,'Teaspoon','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Coconut oil',0.3333,'Cup','','ING',7,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Distilled white Vinigar',1,'Teaspoon','','ING',8,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Chocolate Glaze',0,'','','HDR',9,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sugar',0.5,'Cup','','ING',10,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Butter',0.25,'Cup','','ING',11,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Almond Milk',2,'Tablespoons','','ING',12,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Unsweetned coco powder',2,'Tablespoons','','ING',13,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vanilla extract',2,'Teaspoons','','ING',14,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'FOR THE CAKE  (mix in separate bowl or use the same dish you will bake in- either is fine)','HDR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Preheat the oven to 350 degrees F. In an 8X8 square pan/dish, mix together flour, sugar, cocoa, baking soda, and salt with a fork, making sure it is really blended together. Add the water, vanilla, oil, and vinegar, and again, mix together so that it''s really blended together. 
+Use a spatula to scrape down the sides if necessary.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Place in oven and bake for about 25 minutes, or until a knife comes out clean. Cool on a rack completely (2 hours).','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'FOR THE GLAZE','HDR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,4,'For the glaze, in a small saucepan, bring sugar, margarine, milk, and cocoa to a boil. Stir frequently; then reduce heat to a simmer for 2 minutes, stirring constantly. It''ll look gloppy, but it''s just the bubbles! Remove from heat and stir for another 5 minutes.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,5,'Add vanilla, stir, and immediately pour onto cake. Glaze dries really quickly, so spread it immediately and add any sprinkles now. Let this cool for an 1 hour, if you can wait that long!','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
+call Recipe_SaveRecipe('Chocolate Chip Cookies','Easy Chocolate Chip Cookies that Happen to be Vegan',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Coconut Oil',0.5,'cup','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Brown sugar',1,'cup','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Almond Milk',0.25,'cup','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vanilla extract',1,'Tablespoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'All Purpose Flour',2,'cups','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Baking soda',1,'Teaspoon','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Baking Powder',1,'Teaspoon','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Salt',0,'Teaspoon','','ING',7,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Chocolate chips',0.75,'cup','','ING',8,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Pre-heat oven to 350 degrees','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Cream (aka thoroughly mix) together the coconut oil & brown sugar, then add the almond milk & vanilla. The mixture may be really "liquidy" this is OK.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'In a separate bowl mix the flour, baking soda, baking powder and salt.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'Combine the wet & dry ingredients (it WILL BE crumbly - this is OK), then fold in the chocolate morsels & any other mix-ins of your choosing.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,4,'Roll into Tbsp sized balls & place them on an ungreased cookie sheet (or on a sheet of parchment paper on the baking sheet), then flatten them out a bit with your palm. The dough may be a little crumbly, but just smoosh it together and it will work fine!','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,5,'Bake for 7-10 minutes. (I did 8 which was perfect)','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
 call Recipe_SaveRecipe('Chocolate Chunk Blondies','',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'baking soda',1,'tsp','','ING',0,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'chopped walnuts',1.5,'cup','','ING',0,pIngredientID);
@@ -664,6 +755,26 @@ call Recipe_SaveIngredient(0,pRecipeID,'Dulce de leche',0,'','','HDR',50,pIngred
 call Recipe_SaveIngredient(0,pRecipeID,'sweetened condensed milk',70,'oz','4-6 cans','ING',60,pIngredientID);
 
 
+call Recipe_SaveRecipe('FALAFEL','MY FAVORITE FALAFEL',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Dried Chickpeas',7.5,'ounces','(half of a 15 oz bag)','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Onion',1,'cup','chopped','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Fresh Parsely',2,'Tablespoons','finely chopped','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Fresh cilantro',2,'Tablespoons','finely chopped','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Salt',2,'Teaspoons','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Black pepper',1,'Teaspoon','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Dried hot red pepper flakes',1,'Teaspoon','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Garlic',4,'cloves','','ING',7,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Cumin',1,'Teaspoon','','ING',8,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Baking Powder',1,'Teaspoon','','ING',9,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Flour',6,'Tablespoons','','ING',10,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Put the chickpeas in a large bowl and add enough cold water to cover them by at least 2 inches. Let soak overnight, then drain','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Place the drained, uncooked chickpeas and the onions in the bowl of a food processor fitted with a steel blade. Add the parsley, cilantro, salt, hot pepper, garlic, and cumin. Process until blended but not pureed.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Sprinkle in the baking powder and 4 tablespoons of the flour, and pulse. You want to add enough bulgur or flour so that the dough forms a small ball and no longer sticks to your hands. Turn into a bowl and refrigerate, covered, for several hours.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'Form the chickpea mixture into balls about the size of walnuts, or use a falafel scoop, available in Middle-Eastern markets.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,4,'Heat 3 inches of oil to 375ºF in a deep pot or wok and fry 1 ball to test. If it falls apart, add a little flour. Then fry about 6 balls at once for a few minutes on each side, or until golden brown. Drain on paper towels. Stuff half a pita with falafel balls, chopped tomatoes, onion, green pepper, and pickled turnips. Drizzle with tahina thinned with water.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
 call Recipe_SaveRecipe('Fiesta Chicken','',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'black beans',15.5,'oz','1 can, drained and rinsed','ING',0,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'can corn',15,'oz','1 can, drained','ING',0,pIngredientID);
@@ -817,6 +928,28 @@ call Recipe_SaveDirections(0,pRecipeID,40,'On a low speed, mix in the dry ingred
 call Recipe_SaveDirections(0,pRecipeID,50,'Drop rounded tablespoon size balls on a lightly greased cookie sheet.','DIR',pDirectionID);
 call Recipe_SaveDirections(0,pRecipeID,60,'Grease the bottom of a drinking glass, dip in sugar and flatten each ball with glass. Sprinkle with nutmeg.','DIR',pDirectionID);
 call Recipe_SaveDirections(0,pRecipeID,70,'Bake for 8-10 minutes or until golden around the edges. Remove and allow to cool on cooling rack.','DIR',pDirectionID);
+
+
+call Recipe_SaveRecipe('No chicken here: General Tso''s tofu','Your favorite take-out made meatless.',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sesame oil',1,'Tablespoon','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'soy sauce',0.25,'Cup','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Rice wine vinegar',2,'Tablespoons','Can sub with Red Wine vinegar','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Cornstarch',1,'Tablespoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Fresh Ginger',1,'Tablespoon','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Garlic',4,'cloves','Minced','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'agave, honey or brown sugar',3,'Tablespoons','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sriracha sauce',2,'Tablespoons','omit if you don''t want the sauce spicy','ING',7,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'For the tofu',0,'','','HDR',8,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Soy sauce',2,'Tablespoons','','ING',9,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Cornstarch',2,'Tablespoons','','ING',10,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'extra-firm tofu',1,'Package','drained and pressed well to remove extra moisture','ING',11,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'sesame oil',2,'tablespoons','','ING',12,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sliced green onions, for garnish',0,'','Garnish','ING',13,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Cut the tofu into cubes and add to a bowl. Add in the 2 tablespoons cornstarch and soy sauce and toss well with your hands. Let marinate 30-60 minutes on the counter. (This will allow the tofu to absorb the soy sauce flavor.)','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'In a separate bowl combine all of the ingredients for the sauce mixing well.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'In a large pan over medium-high heat add the sesame oil along with the cubed tofu. Cook for 5-7 minutes or until brown on all sides. Remove from the pan and place on a plate lined with paper towels.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'In the same pan, add the sauce and cook until thickened. Add the tofu back to the pan and gently mix to coat all of the tofu.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
 
 
 call Recipe_SaveRecipe('No Churn Vanilla Ice Cream','',0,pRecipeID);
@@ -1004,6 +1137,27 @@ call Recipe_SaveDirections(0,pRecipeID,50,'Bake until firm and a toothpick inser
 call Recipe_SaveDirections(0,pRecipeID,60,'Cool on rack for 15 minutes before removing from pan.','DIR',pDirectionID);
 
 
+call Recipe_SaveRecipe('Ranch','Tofu based dressing',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Cilantro',0.25,'Cup','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Silken Tofu',8.5,'Ounces','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Almond Milk',2,'Tablespoons','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Cider Vinager',1,'Tablespoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Lemon Juice',1,'Tablespoons','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Mustard',1,'Tablespoon','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Garlic Powder',0.5,'Teaspoon','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Onion Powder',0.5,'Teaspoon','','ING',7,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Black pepper',2,'Pinches','','ING',8,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Salt',0.5,'Teaspoon','','ING',9,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Chop the cilantro as finely as you can','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Place the tofu into a food processor and blitz to obtain a creamy and smooth paste.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Add in the milk, the vinegar, the lemon juice, the mustard, the onion granules, the garlic granules, the black pepper and the salt, and blitz again to incorporate them.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'The last ingredients to add is the parsley. Don’t blend too much at this point, as you simply want to mix in the parsley.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,4,'NUTRITIONAL INFO','HDR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,5,'NUTRITIONAL INFO
+Serving Size: 50g       Calories: 27kcal       Carbohydrate: 1.4g       Sugar: 0.2g       Fiber: 0.2g       Fat: 0.6g       Unsaturated Fat: 0.6g       Protein: 3g       Sodium: 119mg       Water: 44g','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
 call Recipe_SaveRecipe('Sausage Gravy','',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'butter',3,'tbsp','','ING',0,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'flour',3,'tbsp','','ING',0,pIngredientID);
@@ -1036,29 +1190,46 @@ call Recipe_SaveDirections(0,pRecipeID,30,'In a jar with a tight fitting lid com
 call Recipe_SaveDirections(0,pRecipeID,40,'Pour the dressing over the noodles. Add chicken and mix well. Add green onions and cilantro and serve.','DIR',pDirectionID);
 
 
-call Recipe_SaveRecipe('Shortbread Cookies','',0,pRecipeID);
+call Recipe_SaveRecipe('Shortbread Cookies','Vegan',0,pRecipeID);
 call Recipe_SaveIngredient(0,pRecipeID,'flour',3.5,'cup','all-purpose','ING',0,pIngredientID);
-call Recipe_SaveIngredient(0,pRecipeID,'salt',0.25,'tsp','','ING',0,pIngredientID);
-call Recipe_SaveIngredient(0,pRecipeID,'semisweet chocolate',6.5,'oz','finely chopped','ING',0,pIngredientID);
-call Recipe_SaveIngredient(0,pRecipeID,'sugar',1,'cup','plus extra for sprinkling','ING',0,pIngredientID);
-call Recipe_SaveIngredient(0,pRecipeID,'unsalted butter',0.75,'lbs','room temperature','ING',0,pIngredientID);
-call Recipe_SaveIngredient(0,pRecipeID,'vanilla extract',1,'tsp','','ING',0,pIngredientID);
-call Recipe_SaveDirections(0,pRecipeID,10,'Preheat the oven to 350 degrees F.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,20,'In the bowl of an electric mixer fitted with a paddle attachment, mix together the butter and 1 cup of sugar until they are just combined.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,30,'Add the vanilla.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,40,'In a medium bowl, sift together the flour and salt, then add them to the butter-and-sugar mixture.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,50,'Mix on low speed until the dough starts to come together.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,60,'Dump onto a surface dusted with flour and shape into a flat disk.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,70,'Wrap in plastic and chill for 30 minutes.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,80,'Roll the dough 1/2-inch thick and cut with a 3 by 1-inch finger-shaped cutter.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,90,'Place the cookies on an ung,reased baking sheet and sprinkle with sugar.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,100,'Bake for 20 to 25 minutes, until the edges begin to brown. Allow to cool to room temperature.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,110,'When the cookies are cool, place them on a baking sheet lined with parchment paper.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,120,'Put 3 ounces of the chocolate in a glass bowl and microwave on high power for 30 seconds.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,130,'Stir with a wooden spoon. Continue to heat and stir in 30-second increments until the chocolate is just melted.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,140,'Add the remaining chocolate and allow it to sit at room temperature, stirring often, until it''s completely smooth.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,150,'Stir vigorously until the chocolate is smooth and slightly cooled; stirring makes it glossier.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,160,'Drizzle 1/2 of each cookie with just enough chocolate to coat it.','DIR',pDirectionID);
+call Recipe_SaveIngredient(0,pRecipeID,'salt',0,'tsp','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'semisweet chocolate',6.5,'oz','finely chopped','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'sugar',1,'cup','plus extra for sprinkling','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'unsalted butter',0,'lbs','room temperature','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'vanilla extract',1,'tsp','','ING',5,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Preheat the oven to 350 degrees F.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'In the bowl of an electric mixer fitted with a paddle attachment, mix together the butter and 1 cup of sugar until they are just combined.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Add the vanilla.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'In a medium bowl, sift together the flour and salt, then add them to the butter-and-sugar mixture.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,4,'Mix on low speed until the dough starts to come together.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,5,'Dump onto a surface dusted with flour and shape into a flat disk.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,6,'Wrap in plastic and chill for 30 minutes.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,7,'Roll the dough 1/2-inch thick and cut with a 3 by 1-inch finger-shaped cutter.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,8,'Place the cookies on an ung,reased baking sheet and sprinkle with sugar.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,9,'Bake for 20 to 25 minutes, until the edges begin to brown. Allow to cool to room temperature.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,10,'When the cookies are cool, place them on a baking sheet lined with parchment paper.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,11,'Put 3 ounces of the chocolate in a glass bowl and microwave on high power for 30 seconds.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,12,'Stir with a wooden spoon. Continue to heat and stir in 30-second increments until the chocolate is just melted.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,13,'Add the remaining chocolate and allow it to sit at room temperature, stirring often, until it''s completely smooth.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,14,'Stir vigorously until the chocolate is smooth and slightly cooled; stirring makes it glossier.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,15,'Drizzle 1/2 of each cookie with just enough chocolate to coat it.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
+call Recipe_SaveRecipe('Simple Vegan Banana Bread','This recipe takes hardly any time to whip up and only an hour to bake. The result is a fluffy, chewy banana bread. Enjoy!',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Bananas',4,'','mashed','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vanilla extract',1,'Teaspoon','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'coconut oil',0.25,'cup','melted','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'flour',1.75,'cup','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'brown sugar',0.3333,'cup','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'baking powder',2,'tsp','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'baking soda',0.5,'tsp','','ING',6,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'chocolate chips',0.5,'cup','','ING',7,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Mix mashed bananas, vanilla and melted coconut oil together in a bowl.  Stir well.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'In a separate bowl, mix flour, sugar, baking powder and baking soda. Stir well to combine.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'Add the dry ingredients to the wet ingredients and mix to combine.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'Pour into a parchment paper-lined loaf pan and bake at 350 F for 60 minutes or until browned and cracked on top.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
 
 
 call Recipe_SaveRecipe('Snickers Cheesecake','',0,pRecipeID);
@@ -1272,19 +1443,31 @@ call Recipe_SaveIngredient(0,pRecipeID,'cornmeal',1,'cup','','ING',0,pIngredient
 call Recipe_SaveIngredient(0,pRecipeID,'flour',1,'cup','','ING',1,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'sugar',0.5,'cup','','ING',2,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'baking soda',1,'teaspoon','','ING',3,pIngredientID);
-call Recipe_SaveIngredient(0,pRecipeID,'almond milk',1.24,'cup','','ING',4,pIngredientID);
-call Recipe_SaveIngredient(0,pRecipeID,'canola oil',0,'cup','','ING',5,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'almond milk',1.25,'cup','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'canola oil',0.3333,'cup','','ING',5,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'Ener-G “egg”',1,'egg replacer','','ING',6,pIngredientID);
 call Recipe_SaveIngredient(0,pRecipeID,'butter',7,'teaspoons','','ING',7,pIngredientID);
 call Recipe_SaveDirections(0,pRecipeID,0,'Preheat over at 400º','DIR',pDirectionID);
 call Recipe_SaveDirections(0,pRecipeID,1,'Make your Ener-G “egg” then place it to the side.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,2,'In a large bowl, cornmeal, sugar, salt and baking soda.','DIR',pDirectionID);
-call Recipe_SaveDirections(0,pRecipeID,3,'In a separate bowl, mix together almond milk, canola oil and Ener-G egg.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,2,'In a large bowl, combine flour, cornmeal, sugar, salt and baking soda (all dry ingredients)','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,3,'In a separate bowl, mix together almond milk, canola oil and Ener-G egg.(all wet ingredients)','DIR',pDirectionID);
 call Recipe_SaveDirections(0,pRecipeID,4,'Add wet ingredients to the dry ingredients until just combined-being sure not to over mix the batter.','DIR',pDirectionID);
 call Recipe_SaveDirections(0,pRecipeID,5,'Add in the vegan butter','DIR',pDirectionID);
 call Recipe_SaveDirections(0,pRecipeID,6,'Pour into a baking pan and bake for 25 minutes or until a toothpick comes out clean.
 
 Cool for about 10 minutes before enjoying.','DIR',pDirectionID);
+call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
+
+
+call Recipe_SaveRecipe('Vegan Pancakes','"This batter makes light, fluffy, and delicious pancakes. I have been making them for years and everyone that tries them wants the recipe."',0,pRecipeID);
+call Recipe_SaveIngredient(0,pRecipeID,'Flour',1.25,'cup','','ING',0,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Sugar',2,'Tablespoons','','ING',1,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Baking Powder',2,'Teaspoons','','ING',2,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Salt',0.5,'Teaspoon','','ING',3,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Water',1.25,'Cup','','ING',4,pIngredientID);
+call Recipe_SaveIngredient(0,pRecipeID,'Vegtable Oil',1,'Tablespoon','Melted coconut oil can be substituted','ING',5,pIngredientID);
+call Recipe_SaveDirections(0,pRecipeID,0,'Sift the flour, sugar, baking powder, and salt into a large bowl. Whisk the water and oil together in a small bowl. Make a well in the center of the dry ingredients, and pour in the wet. Stir just until blended; mixture will be lumpy.','DIR',pDirectionID);
+call Recipe_SaveDirections(0,pRecipeID,1,'Heat a lightly oiled griddle over medium-high heat. Drop batter by large spoonfuls onto the griddle, and cook until bubbles form and the edges are dry. Flip, and cook until browned on the other side. Repeat with remaining batter.','DIR',pDirectionID);
 call Recipe_SaveRecipeCategory(pRecipeID,'VEGAN');
 
 
