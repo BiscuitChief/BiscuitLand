@@ -49,8 +49,8 @@ namespace BiscuitChief.Models
             Login userlookup = new Login(username);
             if (!string.IsNullOrEmpty(userlookup.UserName))
             {
-                string encryptedpass = PortalUtility.Encrypt(userlookup.EncryptionSeed, password);
-                if (userlookup.UserName == username && userlookup.Password == encryptedpass)
+                string encryptedpass = PortalUtility.HashString(userlookup.EncryptionSeed, password);
+                if (userlookup.UserName.ToLower() == username.ToLower() && userlookup.Password == encryptedpass)
                 { isvalid = true; }
             }
 
@@ -64,7 +64,7 @@ namespace BiscuitChief.Models
             if (!string.IsNullOrEmpty(this.UserName) && !string.IsNullOrEmpty(this.Password))
             {
                 this.EncryptionSeed = Guid.NewGuid().ToString();
-                this.Password = PortalUtility.Encrypt(this.EncryptionSeed, this.Password);
+                this.Password = PortalUtility.HashString(this.EncryptionSeed, this.Password);
 
                 try
                 {

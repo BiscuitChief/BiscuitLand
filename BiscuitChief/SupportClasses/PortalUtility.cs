@@ -122,6 +122,18 @@ namespace BiscuitChief
             }
         }
 
+        public static string HashString(string seed, string data)
+        {
+            byte[] dataseed = Encoding.ASCII.GetBytes(data + seed);
+            SHA512 mySHA512 = SHA512Managed.Create();
+            byte[] hashbytes = mySHA512.ComputeHash(dataseed);
+
+            string returnval = Convert.ToBase64String(hashbytes);
+
+            return returnval;
+        }
+
+
         #endregion
 
         #region Database
