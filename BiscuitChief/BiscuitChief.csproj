@@ -131,6 +131,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="api\LoginController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -205,6 +206,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SiteScripts\Login.js" />
+    <Content Include="Scripts\SiteScripts\Utilities.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Recipes\Create.cshtml">
       <SubType>Code</SubType>

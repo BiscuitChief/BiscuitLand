@@ -45,11 +45,11 @@ namespace BiscuitChief.Controllers
             return result;
         }
 
-        public ActionResult Logout()
-        {
-            System.Web.Security.FormsAuthentication.SignOut();
-            Session.Clear();
-            return Redirect("/");
-        }
+        //public ActionResult Logout()
+        //{
+        //    System.Web.Security.FormsAuthentication.SignOut();
+        //    Session.Clear();
+        //    return Redirect("/");
+        //}
     }
 }

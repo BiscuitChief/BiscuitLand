@@ -41,6 +41,6 @@
   </MenuItem>
   <MenuItem Authenticated="1">
     <Text>Logout</Text>
-    <Url>/Home/Logout</Url>
+    <Url>javascript:Logout();</Url>
   </MenuItem>
 </TopNavigation>

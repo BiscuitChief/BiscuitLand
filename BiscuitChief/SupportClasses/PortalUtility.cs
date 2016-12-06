@@ -11,7 +11,14 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Drawing;
-using System.IO;
+using System.Web.Http;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Web.Helpers;
+using System.Linq;
 
 namespace BiscuitChief
 {
@@ -232,6 +239,17 @@ namespace BiscuitChief
 
         #endregion
 
+        public static void ValidateAntiForgeryToken()
+        {
+            string cookieToken = String.Empty;
+            string formToken = String.Empty;
+
+            HttpRequest request = HttpContext.Current.Request;
+            formToken = request.Headers["__RequestVerificationToken"];
+            cookieToken = HttpContext.Current.Request.Cookies["__RequestVerificationToken"].Value;
+            AntiForgery.Validate(cookieToken, formToken);
+        }
+
         public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
         {
             double ratioX = (double)maxWidth / image.Width;
@@ -284,6 +302,25 @@ namespace BiscuitChief
                 if (fi.CreationTime < cutoffdate)
                 { File.Delete(filename); }
             }
+        }
+
+        public class PlainTextResult : IHttpActionResult
+        {
+            public PlainTextResult(string msg, HttpStatusCode statuscd)
+            {
+                this.Content = msg;
+                this.StatusCode = statuscd;
+            }
+
+            public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+            {
+                HttpResponseMessage response = new HttpResponseMessage(StatusCode);
+                response.Content = new StringContent(Content);
+                return Task.FromResult(response);
+            }
+
+            public string Content { get; set; }
+            public HttpStatusCode StatusCode { get; set; }
         }
 
         public class PagerHelper
