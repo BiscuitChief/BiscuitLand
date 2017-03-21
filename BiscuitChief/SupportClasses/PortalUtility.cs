@@ -220,6 +220,25 @@ namespace BiscuitChief
             return error;
         }
 
+        public static string SendErrorEmail(Exception ex)
+        {
+            string error = String.Empty;
+
+            StringBuilder body = new StringBuilder();
+            try { body.AppendLine(HttpContext.Current.Request.Url.AbsoluteUri); }
+            catch { }
+            try { body.AppendLine(HttpContext.Current.User.Identity.Name); }
+            catch { }
+
+            body.AppendLine(ex.Message);
+            body.AppendLine(ex.TargetSite.Name);
+            body.AppendLine(ex.StackTrace);
+
+            error = SendEmail("BiscuitChief.net error email", body.ToString());
+
+            return error;
+        }
+
         /// <summary>
         /// Retrieves an email template as a text string
         /// </summary>

@@ -17,3 +17,8 @@ function Logout() {
         }
     });
 }
+
+var verificationtokenname = "__RequestVerificationToken";
+function RequestVerificationHeader() {
+    return { '__RequestVerificationToken': $("input[name=__RequestVerificationToken]").val() };
+}
